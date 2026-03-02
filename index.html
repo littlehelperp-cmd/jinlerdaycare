@@ -91,15 +91,14 @@ nav.scrolled {
 }
 .nav-links a:hover::after { width: 100%; }
 .nav-cta {
-  padding: 0.6rem 1.4rem;
-  background: var(--sage-dark); color: white !important;
-  border-radius: 50px;
-  font-size: 0.78rem !important;
-  transition: background 0.3s !important;
+  background: transparent; color: var(--charcoal) !important;
+  border: none;
+  font-size: 0.82rem !important;
+  transition: all 0.3s !important;
 }
-.nav-cta::after { display: none !important; }
-.nav-cta:hover { background: var(--terracotta) !important; }
-
+.nav-cta::after { display: block !important; background: var(--gold); }
+.nav-cta:hover { background: transparent !important; color: var(--charcoal) !important; }
+ 
 /* ─── HERO ─── */
 .hero {
   min-height: 100vh;
