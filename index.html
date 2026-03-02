@@ -1,277 +1,731 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今樂日照｜自立支援與復能銜接首選</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #5a8d81; /* 森林綠 */
-            --secondary-color: #f4a261; /* 溫暖橘 */
-            --bg-light: #f9fbfb;
-            --text-dark: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今樂日照｜在熟悉的社區裡，續寫精彩日常</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sage: #6b8f71;
+  --sage-dark: #3d5c42;
+  --sage-light: #a8c5ab;
+  --cream: #faf7f2;
+  --warm-white: #fffef9;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --terracotta: #c4714a;
+  --charcoal: #2a2a2a;
+  --mist: #eef2ee;
+  --text-body: #4a4a4a;
+}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Noto Sans TC', sans-serif; line-height: 1.6; color: var(--text-dark); background-color: var(--bg-light); -webkit-font-smoothing: antialiased; }
-        
-        /* 導覽列 RWD 優化 */
-        nav { 
-            background: white; 
-            padding: 1rem 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-        }
-        .logo { font-size: 1rem; font-weight: bold; color: var(--primary-color); flex: 1; }
-        .nav-links { display: flex; gap: 1rem; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 0.9rem; white-space: nowrap; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Hero 視覺區 */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1581578731522-588274627e94?auto=format&fit=crop&q=80&w=1600') center/cover; 
-            min-height: 70vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            color: white; 
-            text-align: center; 
-            padding: 60px 20px; 
-        }
-        .hero h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 1rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); line-height: 1.3; }
-        .hero p { font-size: clamp(1rem, 3vw, 1.2rem); margin-bottom: 2rem; max-width: 700px; opacity: 0.9; }
+html { scroll-behavior: smooth; }
 
-        /* 按鈕優化 */
-        .btn { padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; display: inline-block; text-align: center; border: none; cursor: pointer; }
-        .btn-primary { background: var(--secondary-color); color: white; box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4); }
-        .btn-primary:hover { background: #e76f51; transform: translateY(-2px); }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-        section { padding: 80px 10%; }
-        h2 { text-align: center; margin-bottom: 40px; color: var(--primary-color); font-size: clamp(1.5rem, 4vw, 2rem); position: relative; }
-        h2::after { content: ''; width: 40px; height: 3px; background: var(--secondary-color); display: block; margin: 15px auto 0; }
+/* ─── CURSOR ─── */
+* { cursor: none; }
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  transition: transform 0.1s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9998;
+  transition: all 0.18s ease;
+  opacity: 0.6;
+}
 
-        .about-story { max-width: 800px; margin: 0 auto; background: white; padding: clamp(25px, 5vw, 45px); border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-left: 5px solid var(--primary-color); }
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 1.4rem 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 100;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(107,143,113,0.12);
+  padding: 1rem 6%;
+}
+.logo-wrap { display: flex; flex-direction: column; }
+.logo-main {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--sage-dark); letter-spacing: 0.05em;
+}
+.logo-sub {
+  font-size: 0.68rem; color: var(--gold);
+  letter-spacing: 0.1em; margin-top: 2px; font-weight: 500;
+}
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a {
+  font-size: 0.82rem; letter-spacing: 0.12em;
+  text-decoration: none; color: var(--charcoal);
+  font-weight: 500; text-transform: uppercase;
+  position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  padding: 0.6rem 1.4rem;
+  background: var(--sage-dark); color: white !important;
+  border-radius: 50px;
+  font-size: 0.78rem !important;
+  transition: background 0.3s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--terracotta) !important; }
 
-        /* 三大核心佈局 */
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .feature-card { background: white; padding: 40px 30px; border-radius: 15px; text-align: center; transition: 0.3s; border: 1px solid #f0f0f0; }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        .feature-card i { font-size: 2.8rem; color: var(--secondary-color); margin-bottom: 20px; }
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 6% 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #e8ede9 0%, #f5f0e8 40%, #ede8e0 100%);
+}
+.hero-orb {
+  position: absolute;
+  border-radius: 50%; filter: blur(80px); opacity: 0.35;
+}
+.orb1 { width: 600px; height: 600px; background: var(--sage-light); top: -200px; right: -100px; animation: drift1 12s ease-in-out infinite; }
+.orb2 { width: 400px; height: 400px; background: var(--gold-light); bottom: -100px; left: -50px; animation: drift2 15s ease-in-out infinite; }
+.orb3 { width: 300px; height: 300px; background: #d4c4b0; top: 30%; right: 15%; animation: drift3 10s ease-in-out infinite; }
+@keyframes drift1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-30px,30px);} }
+@keyframes drift2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(20px,-20px);} }
+@keyframes drift3 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-15px,15px);} }
 
-        /* 品質承諾區 */
-        .promise-section { background: linear-gradient(135deg, #5a8d81 0%, #426960 100%); color: white; padding: 50px 5%; border-radius: 20px; margin: 20px 0; }
-        .promise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center; }
-        .promise-card h3 { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
-        .promise-number { font-size: 1.8rem; font-weight: bold; display: block; margin-bottom: 5px; color: var(--secondary-color); }
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  background: rgba(107,143,113,0.12);
+  border: 1px solid rgba(107,143,113,0.3);
+  border-radius: 50px; margin-bottom: 2rem;
+  font-size: 0.78rem; letter-spacing: 0.1em; color: var(--sage-dark);
+  animation: fadeUp 0.8s ease both;
+}
+.badge-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
 
-        /* 表格容器 RWD */
-        .table-container { overflow-x: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th, td { padding: 18px; border-bottom: 1px solid #eee; text-align: left; }
-        th { background: #f8faf9; color: var(--primary-color); font-weight: 700; }
-        .highlight-cell { background-color: #fdf6f0; font-weight: bold; color: var(--primary-color); }
+.hero h1 {
+  font-family: 'Playfair Display', 'Noto Serif TC', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: 1.15; letter-spacing: -0.01em;
+  color: var(--charcoal);
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: italic; color: var(--sage-dark);
+  font-size: 0.9em;
+}
+.hero-sub {
+  margin-top: 1.5rem; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.8;
+  font-family: 'Noto Serif TC', serif; font-weight: 300;
+  max-width: 500px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-actions {
+  margin-top: 2.5rem;
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-gold {
+  padding: 14px 32px; border-radius: 4px;
+  background: var(--gold); color: white;
+  font-size: 0.85rem; letter-spacing: 0.08em; font-weight: 600;
+  text-decoration: none; transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+  text-transform: uppercase;
+}
+.btn-gold:hover { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,113,74,0.4); }
+.btn-outline {
+  padding: 13px 28px; border-radius: 4px;
+  border: 1.5px solid var(--charcoal);
+  color: var(--charcoal); font-size: 0.85rem;
+  letter-spacing: 0.08em; font-weight: 500;
+  text-decoration: none; transition: all 0.3s;
+  text-transform: uppercase;
+}
+.btn-outline:hover { background: var(--charcoal); color: white; }
 
-        /* 流程圖 RWD */
-        .workflow-timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 30px; }
-        .workflow-timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 3px; background: var(--primary-color); opacity: 0.15; }
-        .step-item { position: relative; margin-bottom: 30px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 3px 12px rgba(0,0,0,0.04); }
-        .step-item::before { content: ''; position: absolute; left: -25px; top: 28px; width: 14px; height: 14px; background: var(--secondary-color); border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 3px rgba(244,162,97,0.2); }
-        .step-tag { font-size: 0.8rem; font-weight: bold; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 1px; }
+.hero-visual {
+  position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+  z-index: 2;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.hero-stats-wrap {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.stat-card {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 16px; padding: 20px 28px;
+  min-width: 200px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s;
+}
+.stat-card:hover { transform: translateX(-6px); }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700;
+  color: var(--sage-dark); line-height: 1;
+}
+.stat-label { font-size: 0.78rem; color: var(--text-body); margin-top: 4px; letter-spacing: 0.05em; }
 
-        /* Footer RWD */
-        footer { background: #2d2d2d; color: white; padding: 60px 10% 30px; }
-        .footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
-        .footer-info { flex: 1; min-width: 300px; }
-        .footer-qr { flex: 0 0 240px; background: white; padding: 25px; border-radius: 20px; text-align: center; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .footer-qr img { width: 150px; height: 150px; margin: 10px 0; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
-        /* 手機版專屬微調 */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; text-align: center; padding: 1rem; }
-            .logo { margin-bottom: 15px; font-size: 0.95rem; line-height: 1.4; }
-            .nav-links { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
-            .nav-links a { font-size: 0.85rem; }
-            
-            section { padding: 50px 6%; }
-            .hero { min-height: 60vh; padding: 80px 20px; }
-            .btn { width: 100%; max-width: 350px; }
-            
-            .footer-container { flex-direction: column; text-align: center; }
-            .footer-info h2 { text-align: center !important; }
-            .footer-info p { justify-content: center; }
-            .footer-qr { margin: 0 auto; }
-        }
-    </style>
+/* ─── SECTION BASE ─── */
+section { padding: 100px 6%; }
+.section-label {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Playfair Display', 'Noto Serif TC', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--charcoal); line-height: 1.25;
+  max-width: 560px;
+}
+.section-line {
+  width: 48px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--terracotta));
+  margin: 1.5rem 0;
+}
+
+/* ─── PHILOSOPHY ─── */
+.philosophy { background: var(--warm-white); }
+.philosophy-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  margin-top: 60px;
+}
+.philosophy-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-style: italic; color: var(--sage-dark);
+  line-height: 1.5;
+  padding-left: 2rem;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 2rem;
+}
+.philosophy-text { font-size: 1rem; line-height: 1.9; color: var(--text-body); font-family: 'Noto Serif TC', serif; font-weight: 300; }
+.philosophy-image-wrap {
+  position: relative;
+  border-radius: 20px; overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.philosophy-image-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.9);
+  transition: transform 0.6s ease;
+}
+.philosophy-image-wrap:hover img { transform: scale(1.04); }
+.img-badge {
+  position: absolute; bottom: -1px; right: -1px;
+  background: var(--sage-dark); color: white;
+  padding: 20px 28px; border-radius: 16px 0 20px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; line-height: 1.4;
+  text-align: center;
+}
+
+/* ─── FEATURES ─── */
+.features-section { background: var(--mist); }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 60px;
+  border-radius: 20px; overflow: hidden;
+}
+.feature-item {
+  background: white; padding: 48px 36px;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.feature-item::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--sage), var(--gold));
+  transform: scaleX(0); transition: transform 0.4s;
+}
+.feature-item:hover::before { transform: scaleX(1); }
+.feature-item:hover { background: var(--cream); transform: translateY(-4px); }
+.feature-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 700; line-height: 1;
+  color: var(--gold); opacity: 0.3; margin-bottom: 1rem;
+}
+.feature-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+.feature-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 0.8rem;
+}
+.feature-desc { font-size: 0.88rem; line-height: 1.8; color: var(--text-body); }
+
+/* ─── PROMISE ─── */
+.promise-section {
+  background: linear-gradient(160deg, var(--sage-dark) 0%, #2d4a32 60%, #1e3326 100%);
+  color: white; position: relative; overflow: hidden;
+}
+.promise-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.promise-section .section-label { color: var(--gold-light); }
+.promise-section .section-title { color: white; }
+.promise-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+  margin-top: 60px; position: relative;
+}
+.promise-card {
+  padding: 40px 32px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s;
+}
+.promise-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-6px); }
+.promise-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 700;
+  color: var(--gold); display: block; line-height: 1; margin-bottom: 0.5rem;
+}
+.promise-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; color: white; }
+.promise-card p { font-size: 0.88rem; line-height: 1.8; color: rgba(255,255,255,0.72); }
+
+/* ─── COMPARE TABLE ─── */
+.compare-section { background: white; }
+.table-wrap {
+  margin-top: 60px;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 40px rgba(0,0,0,0.06);
+}
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 22px 28px; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; }
+thead th:first-child { background: #f8f6f3; color: var(--text-body); text-align: left; }
+thead th:nth-child(2) { background: #f0f0f0; color: #888; text-align: center; }
+thead th:last-child { background: var(--sage-dark); color: white; text-align: center; }
+tbody tr { border-bottom: 1px solid #f0ede8; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover td { background: rgba(107,143,113,0.04); }
+tbody td { padding: 20px 28px; font-size: 0.9rem; }
+tbody td:first-child { color: var(--text-body); font-weight: 500; }
+tbody td:nth-child(2) { text-align: center; color: #999; }
+tbody td:last-child { text-align: center; color: var(--sage-dark); font-weight: 600; }
+.check { color: var(--sage); font-size: 1.1rem; }
+.cross { color: #ccc; font-size: 1.1rem; }
+
+/* ─── WORKFLOW ─── */
+.workflow-section { background: var(--cream); }
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0; margin-top: 60px; position: relative;
+}
+.steps-grid::before {
+  content: '';
+  position: absolute; top: 52px; left: calc(16.67% + 24px); right: calc(16.67% + 24px); height: 1px;
+  background: linear-gradient(90deg, var(--sage-light), var(--gold), var(--sage-light));
+  z-index: 0;
+}
+.step-item {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 24px; position: relative; z-index: 1;
+}
+.step-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: white; border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem; font-weight: 700; color: var(--gold);
+  font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.2);
+}
+.step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; color: var(--charcoal); }
+.step-desc { font-size: 0.86rem; line-height: 1.8; color: var(--text-body); }
+.step-link {
+  display: inline-block; margin-top: 1rem;
+  padding: 7px 16px; border-radius: 50px;
+  background: var(--sage-dark); color: white;
+  font-size: 0.78rem; text-decoration: none;
+  transition: background 0.3s; letter-spacing: 0.05em;
+}
+.step-link:hover { background: var(--terracotta); }
+
+/* ─── CONTACT / FOOTER ─── */
+footer {
+  background: var(--charcoal); color: white;
+  padding: 80px 6% 40px;
+}
+.footer-top {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 80px; align-items: start;
+  margin-bottom: 60px;
+}
+.footer-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.2; color: white; margin-bottom: 1rem;
+}
+.footer-headline em { font-style: italic; color: var(--gold-light); }
+.footer-body { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 480px; margin-bottom: 2rem; font-family: 'Noto Serif TC', serif; font-weight: 300; }
+.contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-list li { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: rgba(255,255,255,0.8); }
+.contact-list a { color: inherit; text-decoration: none; transition: color 0.3s; }
+.contact-list a:hover { color: var(--gold-light); }
+.contact-icon { width: 36px; height: 36px; border-radius: 8px; display:flex;align-items:center;justify-content:center; font-size: 0.9rem; flex-shrink: 0; }
+.icon-map { background: rgba(107,143,113,0.25); }
+.icon-phone { background: rgba(201,168,76,0.25); }
+.icon-line { background: rgba(6,199,85,0.2); }
+
+.qr-card {
+  background: white; padding: 28px;
+  border-radius: 20px; text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+.qr-card img { width: 160px; height: 160px; border-radius: 10px; margin-bottom: 10px; }
+.qr-label { font-size: 0.82rem; color: #888; }
+.qr-id { font-size: 0.9rem; color: #06C755; font-weight: 700; margin-top: 4px; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.75rem; color: rgba(255,255,255,0.3);
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero-visual { display: none; }
+  .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .promise-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .steps-grid::before { display: none; }
+  .footer-top { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .cursor, .cursor-ring { display: none; }
+  * { cursor: auto; }
+}
+
+@media (max-width: 600px) {
+  section { padding: 70px 5%; }
+  .hero { padding: 100px 5% 60px; }
+  .hero-actions { flex-direction: column; }
+  .btn-gold, .btn-outline { text-align: center; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">今樂日照健康有限公司<br>附設桃園市私立今樂社區長照機構</div>
-        <div class="nav-links">
-            <a href="#about">品牌精神</a>
-            <a href="#promise">服務承諾</a>
-            <a href="#workflow">申請流程</a>
-            <a href="#contact">聯絡諮詢</a>
-        </div>
-    </nav>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-    <header class="hero">
-        <h1>在熟悉的社區裡<br>續寫精彩日常</h1>
-        <p>今樂日照中心 115 下半年度正式營運！<br>精緻 15 人制，提供最溫暖的復能銜接照護</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEsbkS3Nrcg2kpJxargYj0bxruMtZXhBUO7fPhnfZuVcpWDg/viewform?usp=dialog" 
-           target="_blank" class="btn btn-primary">立即預約諮詢，我們將與您聯繫</a>
-    </header>
+<nav id="navbar">
+  <div class="logo-wrap">
+    <span class="logo-main">今樂日照健康有限公司</span>
+    <span class="logo-sub">附設桃園市私立今樂社區長照機構</span>
+  </div>
+  <div class="nav-links">
+    <a href="#about">品牌精神</a>
+    <a href="#features">服務核心</a>
+    <a href="#promise">照顧承諾</a>
+    <a href="#workflow">申請流程</a>
+    <a href="#contact" class="nav-cta">立即諮詢</a>
+  </div>
+</nav>
 
-    <section id="about">
-        <h2>品牌精神：減法照顧</h2>
-        <div class="about-story">
-            <p><strong>「生活，不該因為年歲而失去自主權。」</strong></p><br>
-            <p>在今樂，我們推動「減法照顧」。我們深信長輩需要的不是一個被動接受代勞的地方，而是一個能練習自立、找回社交與自我價值的轉運站。透過專業運動監測，我們確保每份努力都能轉化為復能的動力。</p>
-        </div>
-    </section>
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="orb1 hero-orb"></div>
+  <div class="orb2 hero-orb"></div>
+  <div class="orb3 hero-orb"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      115下半年度正式營運
+    </div>
+    <h1>在熟悉的社區裡<br><em>續寫精彩日常</em></h1>
+    <p class="hero-sub">今樂日照中心，以「減法照顧」為理念，精緻15人制，提供最溫暖的復能銜接照護。</p>
+    <div class="hero-actions">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEsbkS3Nrcg2kpJxargYj0bxruMtZXhBUO7fPhnfZuVcpWDg/viewform?usp=dialog" target="_blank" class="btn-gold">預約諮詢 →</a>
+      <a href="#about" class="btn-outline">了解更多</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-stats-wrap">
+      <div class="stat-card">
+        <div class="stat-num">15</div>
+        <div class="stat-label">人精緻小班制</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">80%</div>
+        <div class="stat-label">長者機能穩定目標</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">每日</div>
+        <div class="stat-label">18:00前更新數位聯繫簿</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section style="background-color: #fff;">
-        <h2>三大專業核心</h2>
-        <div class="features">
-            <div class="feature-card">
-                <i class="fas fa-hospital-user"></i>
-                <h3>急性後期銜接</h3>
-                <p>專為術後、出院長者設計，<br>提供從醫院到居家過渡期的專業照護支援。</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-walking"></i>
-                <h3>自立支援課程</h3>
-                <p>每週 3 堂特色復能課，目標達成 80% <br>長者生理機能穩定不退化。</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>數據透明管理</h3>
-                <p>每日 18:00 前更新數位聯繫簿(LINE)，<br>情緒、健康數據一手掌握。</p>
-            </div>
-        </div>
-    </section>
+<!-- ═══ PHILOSOPHY ═══ -->
+<section class="philosophy" id="about">
+  <div class="section-label">Philosophy</div>
+  <h2 class="section-title">減法照顧<br>找回自主與尊嚴</h2>
+  <div class="section-line"></div>
+  <div class="philosophy-grid">
+    <div class="reveal">
+      <p class="philosophy-quote">生活，不該因為年歲而失去自主權。</p>
+      <p class="philosophy-text">在今樂，我們推動「減法照顧」。長輩需要的不是一個被動接受代勞的地方，而是一個能練習自立、找回社交與自我價值的轉運站。</p>
+      <br>
+      <p class="philosophy-text">透過專業運動監測，我們確保每份努力都能轉化為復能的動力，讓長輩在家庭與社區之間，找到屬於自己最美好的一天。</p>
+    </div>
+    <div class="philosophy-image-wrap reveal reveal-delay-2">
+      <img src="https://images.unsplash.com/photo-1576765607924-3f7b8410a787?auto=format&fit=crop&q=80&w=800" alt="今樂日照照護現場">
+      <div class="img-badge">✦ 精緻<br>小班制</div>
+    </div>
+  </div>
+</section>
 
-    <section id="promise">
-        <div class="promise-section">
-            <h2 style="color: white; border:none;">今樂的照顧與承諾</h2>
-            <div class="promise-grid">
-                <div class="promise-card">
-                    <span class="promise-number">15 人小班制</span>
-                    <h3>精緻照顧</h3>
-                    <p>堅持限量收托，提供高照顧比，<br>讓每位長輩的細節都不被忽略。</p>
-                </div>
-                <div class="promise-card">
-                    <span class="promise-number">70% 以上</span>
-                    <h3>功能維持</h3>
-                    <p>透過專業復能規劃，<br>目標讓長輩維持生理機能穩定，延緩失能。</p>
-                </div>
-                <div class="promise-card">
-                    <span class="promise-number">100% 穩健</span>
-                    <h3>長久陪伴</h3>
-                    <p>健全的營運管理，確保服務不斷鏈，<br>成為家屬最安心的依靠。</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ FEATURES ═══ -->
+<section class="features-section" id="features">
+  <div class="section-label">Our Expertise</div>
+  <h2 class="section-title">三大專業核心</h2>
+  <div class="section-line"></div>
+  <div class="features-grid">
+    <div class="feature-item reveal">
+      <div class="feature-number">01</div>
+      <div class="feature-icon">🏥</div>
+      <div class="feature-title">急性後期銜接</div>
+      <p class="feature-desc">專為術後、出院長者設計，提供從醫院到居家過渡期的專業照護支援，讓復原之路更安心。</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-1">
+      <div class="feature-number">02</div>
+      <div class="feature-icon">🚶</div>
+      <div class="feature-title">自立支援課程</div>
+      <p class="feature-desc">每週3堂特色復能課，目標達成80%長者生理機能穩定不退化，讓每一步都充滿力量。</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-2">
+      <div class="feature-number">03</div>
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">數據透明管理</div>
+      <p class="feature-desc">每日18:00前更新數位聯繫簿（LINE），情緒、健康數據一手掌握，家屬隨時安心。</p>
+    </div>
+  </div>
+</section>
 
-    <section id="compare">
-        <h2>為什麼選擇今樂？</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>比較維度</th>
-                        <th style="background-color: #e76f51; color: white;">★ 今樂日照</th>
-                        <th>一般日照中心</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>照顧理念</td>
-                        <td class="highlight-cell">減法照顧、練習自立</td>
-                        <td>團體化、較多代勞</td>                        
-                    </tr>
-                    <tr>
-                        <td>復能專業</td>
-                        <td class="highlight-cell">精準運動監測與銜接課程</td>
-                        <td>一般性體操活動</td>              
-                    </tr>
-                    <tr>
-                        <td>環境氛圍</td>
-                        <td class="highlight-cell">單純 15 人精緻空間</td>
-                        <td>人數多(30-60人)較雜亂</td>                     
-                    </tr>
-                    <tr>
-                        <td>入托評估</td>
-                        <td class="highlight-cell">核發專業功能觀察報告</td>
-                        <td>口頭詢問或簡單填表</td>                   
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+<!-- ═══ PROMISE ═══ -->
+<section class="promise-section" id="promise">
+  <div class="section-label" style="color:rgba(255,255,255,0.5);">Our Promise</div>
+  <h2 class="section-title" style="color:white;max-width:100%;">今樂的照顧<br>與承諾</h2>
+  <div class="section-line" style="background:linear-gradient(90deg, var(--gold-light), transparent);"></div>
+  <div class="promise-grid">
+    <div class="promise-card reveal">
+      <span class="promise-num">15</span>
+      <h3>人精緻照顧</h3>
+      <p>堅持限量收托，提供高照顧比，讓每位長輩的細節都不被忽略，每個笑容都被看見。</p>
+    </div>
+    <div class="promise-card reveal reveal-delay-1">
+      <span class="promise-num">70%↑</span>
+      <h3>功能維持</h3>
+      <p>透過專業復能規劃，目標讓長輩維持生理機能穩定，延緩失能進程，找回自信。</p>
+    </div>
+    <div class="promise-card reveal reveal-delay-2">
+      <span class="promise-num">100%</span>
+      <h3>長久陪伴</h3>
+      <p>健全的營運管理，確保服務不斷鏈，成為家屬最安心的依靠，長期且穩健。</p>
+    </div>
+  </div>
+</section>
 
-    <section id="workflow" style="background-color: #ffffff;">
-        <h2>申請流程</h2>
-        <div class="workflow-timeline">
-            <div class="step-item">
-                <span class="step-tag">Step 1</span>
-                <h3>提出申請</h3>
-                <p>撥打長照專線 <strong>1966</strong> 或點擊下方連結使用桃園市線上申請系統。</p>
-                <a href="https://ltc.tycg.gov.tw/tylcPublic/apply/index" target="_blank" class="btn" style="background: #191970; color: white; padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;">桃園市線上申請入口</a>
-            </div>
-            <div class="step-item">
-                <span class="step-tag">Step 2</span>
-                <h3>專員訪視</h3>
-                <p>照管中心將安排專員到府訪視（約 7 個工作天），評估失能等級。</p>
-            </div>
-            <div class="step-item">
-                <span class="step-tag">Step 3</span>
-                <h3>啟動服務</h3>
-                <p>與個管師擬定照顧計畫後，即可正式啟動今樂日照服務。</p>
-            </div>
-        </div>
-    </section>
+<!-- ═══ COMPARE ═══ -->
+<section class="compare-section" id="compare">
+  <div class="section-label">Why Us</div>
+  <h2 class="section-title">為什麼選擇今樂？</h2>
+  <div class="section-line"></div>
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>比較維度</th>
+          <th>一般日照中心</th>
+          <th>★ 今樂日照</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>照顧理念</td>
+          <td>團體化、較多代勞</td>
+          <td>減法照顧、練習自立 ✦</td>
+        </tr>
+        <tr>
+          <td>復能專業</td>
+          <td>一般性體操活動</td>
+          <td>精準運動監測與銜接課程 ✦</td>
+        </tr>
+        <tr>
+          <td>環境氛圍</td>
+          <td>人數多（30–60人）</td>
+          <td>單純15人精緻空間 ✦</td>
+        </tr>
+        <tr>
+          <td>入托評估</td>
+          <td>口頭詢問或簡單填表</td>
+          <td>核發專業功能觀察報告 ✦</td>
+        </tr>
+        <tr>
+          <td>家屬溝通</td>
+          <td>電話或書面不定時</td>
+          <td>每日LINE即時數位聯繫簿 ✦</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-    <footer id="contact">
-        <div class="footer-container">
-            <div class="footer-info">
-                <h2 style="color: var(--secondary-color); text-align: left; border:none; margin-bottom: 20px;">聯繫我們</h2>
-                <p style="margin-bottom: 25px; opacity: 0.9;">如果您正在尋找讓長輩重拾笑容的地方，<br>歡迎預約參觀，感受溫暖的減法照顧。</p>
-                
-                <p style="margin-bottom: 15px; display: flex; align-items: center;">
-                    <i class="fas fa-map-marker-alt" style="color: var(--secondary-color); width: 30px;"></i>
-                    <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" style="color: white; text-decoration: none;">桃園市八德區介壽路二段252巷21號1樓</a>
-                </p>
-                <p style="margin-bottom: 15px; display: flex; align-items: center;">
-                    <i class="fas fa-phone" style="color: var(--secondary-color); width: 30px;"></i>
-                    <a href="tel:033670090" style="color: white; text-decoration: none;">(03) 367-0090</a>
-                </p>
-                <p style="margin-bottom: 15px; display: flex; align-items: center;">
-                    <i class="fab fa-line" style="color: #06C755; width: 30px;"></i>
-                    LINE ID：
-                <a href="https://line.me/R/ti/p/@560oaeip" target="_blank" style="text-decoration: none; color: #06C755; font-weight: bold; margin-left: 5px;">
-                    @560oaeip (點擊加入好友)
-                </a>
-                </p>
-            </div>
-            <div class="footer-qr">
-                <p style="font-weight: bold; margin-bottom: 5px;">今樂 LINE 好友</p>
-                <img src="https://qr-official.line.me/gs/M_560oaeip_GW.png?oat_content=qr" alt="LINE QR">
-                <p style="color: #06C755; font-size: 0.85rem; font-weight: bold;">掃描條碼立即諮詢</p>
-            </div>
-        </div>
-        <p style="text-align: center; font-size: 0.75rem; opacity: 0.5; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-            © 今樂日照健康有限公司 版權所有
-        </p>
-    </footer>
+<!-- ═══ WORKFLOW ═══ -->
+<section class="workflow-section" id="workflow">
+  <div class="section-label">How to Start</div>
+  <h2 class="section-title">申請流程<br>三步輕鬆開始</h2>
+  <div class="section-line"></div>
+  <div class="steps-grid">
+    <div class="step-item reveal">
+      <div class="step-circle">1</div>
+      <div class="step-title">提出申請</div>
+      <p class="step-desc">撥打長照專線 <strong>1966</strong>，或使用桃園市線上申請系統。</p>
+      <a href="https://ltc.tycg.gov.tw/tylcPublic/apply/index" target="_blank" class="step-link">桃園市線上申請 →</a>
+    </div>
+    <div class="step-item reveal reveal-delay-1">
+      <div class="step-circle">2</div>
+      <div class="step-title">專員訪視</div>
+      <p class="step-desc">照管中心安排專員到府訪視（約7個工作天），評估失能等級。</p>
+    </div>
+    <div class="step-item reveal reveal-delay-2">
+      <div class="step-circle">3</div>
+      <div class="step-title">啟動服務</div>
+      <p class="step-desc">與個管師擬定照顧計畫後，即可正式啟動今樂日照服務。</p>
+    </div>
+  </div>
+</section>
 
+<!-- ═══ FOOTER ═══ -->
+<footer id="contact">
+  <div class="footer-top">
+    <div>
+      <h2 class="footer-headline">讓長輩<br><em>重拾笑容</em></h2>
+      <p class="footer-body">如果您正在尋找讓長輩重拾笑容的地方，歡迎預約參觀，感受溫暖的減法照顧。我們的團隊隨時準備好為您和您的家人提供最細心的服務。</p>
+      <ul class="contact-list">
+        <li>
+          <span class="contact-icon icon-map">📍</span>
+          <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank">桃園市八德區介壽路二段252巷21號1樓</a>
+        </li>
+        <li>
+          <span class="contact-icon icon-phone">📞</span>
+          <a href="tel:033670090">(03) 367-0090</a>
+        </li>
+        <li>
+          <span class="contact-icon icon-line">💬</span>
+          LINE ID：<strong style="color:#06C755; margin-left:4px;">@560oaeip</strong>
+        </li>
+      </ul>
+    </div>
+    <div class="qr-card">
+      <p style="font-size:0.82rem;color:#666;margin-bottom:8px;font-weight:600;">掃描加入 LINE</p>
+      <img src="https://qr-official.line.me/gs/M_560oaeip_GW.png?oat_content=qr" alt="LINE QR Code">
+      <p class="qr-label">立即掃描諮詢</p>
+      <p class="qr-id">@560oaeip</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 今樂日照健康有限公司 版權所有</span>
+    <span>附設桃園市私立今樂社區長照機構</span>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX - 5 + 'px';
+  cursor.style.top = e.clientY - 5 + 'px';
+  rx += (e.clientX - 18 - rx) * 0.12;
+  ry += (e.clientY - 18 - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+});
+function animRing() {
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.6)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+});
+
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+</script>
 </body>
 </html>
