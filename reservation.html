@@ -427,6 +427,20 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
       </div>
     </div>
 
+    <div class="form-row single">
+      <div class="form-group">
+        <label>是否有使用長照服務</label>
+      <div class="radio-group" id="ltcServiceGroup">
+      <label class="radio-option" onclick="selectRadio(this, 'ltcServiceGroup')">
+        <input type="radio" name="ltcService" value="是"> 是
+      </label>
+      <label class="radio-option" onclick="selectRadio(this, 'ltcServiceGroup')">
+        <input type="radio" name="ltcService" value="否"> 否
+      </label>
+        </div>
+      </div>
+    </div>
+
     <!-- 2. 預約資訊 -->
     <div class="form-section-title"><span>2</span>預約時間</div>
 
@@ -643,6 +657,7 @@ function submitForm() {
     ltcLevel:     document.getElementById('ltcLevel').value,
     aidType:      document.getElementById('aidType').value,
     transport:    document.querySelector('#transportGroup .selected')?.textContent.trim() || '',
+    ltcService: document.querySelector('#ltcServiceGroup .selected')?.textContent.trim() || '',
     address:      document.getElementById('address').value.trim(),
     visitDate:    document.getElementById('visitDate').value,
     visitTime:    timeSelected.textContent.trim(),
