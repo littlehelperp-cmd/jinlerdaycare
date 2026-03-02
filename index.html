@@ -98,7 +98,7 @@ nav.scrolled {
 }
 .nav-cta::after { display: block !important; background: var(--gold); }
 .nav-cta:hover { background: transparent !important; color: var(--charcoal) !important; }
- 
+
 /* ─── HERO ─── */
 .hero {
   min-height: 100vh;
@@ -333,17 +333,17 @@ section { padding: 100px 6%; }
   box-shadow: 0 2px 40px rgba(0,0,0,0.06);
 }
 table { width: 100%; border-collapse: collapse; }
-thead th { padding: 22px 28px; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; }
+thead th { padding: 22px 28px; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; }
 thead th:first-child { background: #f8f6f3; color: var(--text-body); text-align: left; }
-thead th:nth-child(2) { background: var(--sage-dark); color: white; }
-thead th:last-child   { background: #f0f0f0; color: #888; }
+thead th:nth-child(2) { background: var(--sage-dark); color: white; text-align: center; }
+thead th:last-child { background: #f0f0f0; color: #888; text-align: center; }
 tbody tr { border-bottom: 1px solid #f0ede8; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover td { background: rgba(107,143,113,0.04); }
-tbody td { padding: 20px 28px; font-size: 0.9rem; }
+tbody td { padding: 20px 28px; font-size: 1rem; }
 tbody td:first-child { color: var(--text-body); font-weight: 500; }
-tbody td:nth-child(2) { color: var(--sage-dark); font-weight: 600; }
-tbody td:last-child   { color: #999; }
+tbody td:nth-child(2) { text-align: center; color: var(--sage-dark); font-weight: 600; }
+tbody td:last-child { text-align: center; color: #999; }
 .check { color: var(--sage); font-size: 1.1rem; }
 .cross { color: #ccc; font-size: 1.1rem; }
 
@@ -423,6 +423,79 @@ footer {
   padding-top: 28px;
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.75rem; color: rgba(255,255,255,0.3);
+}
+
+/* ─── PRICING ─── */
+.pricing-section { background: var(--warm-white); }
+.pricing-table-wrap {
+  margin-top: 40px;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 40px rgba(0,0,0,0.06);
+}
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.pricing-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.pricing-table thead th {
+  background: var(--sage-dark); color: white;
+  padding: 18px 20px; font-size: 0.92rem;
+  letter-spacing: 0.06em; text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  font-weight: 600;
+}
+.pricing-table thead .sub-th {
+  background: #4d7254; font-size: 0.88rem;
+}
+.pricing-table tbody tr { border-bottom: 1px solid #f0ede8; }
+.pricing-table tbody tr:last-child { border-bottom: none; }
+.pricing-table tbody tr:hover td { background: rgba(107,143,113,0.04); }
+.pricing-table tbody td {
+  padding: 18px 20px; font-size: 1rem;
+  text-align: center; color: var(--text-body);
+  background: white;
+}
+.pricing-table tbody td:first-child { font-weight: 700; color: var(--sage-dark); }
+.pricing-table tbody td:nth-child(2) { font-weight: 600; color: var(--charcoal); }
+.zero-td {
+  font-weight: 700; color: var(--sage);
+  background: rgba(107,143,113,0.05) !important;
+}
+
+/* 額外費用卡片 */
+.extra-fees {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 20px;
+}
+.extra-fee-card {
+  display: flex; align-items: center; gap: 16px;
+  background: white; border-radius: 12px;
+  padding: 20px 24px;
+  border: 1.5px solid var(--gold-light);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.extra-icon { font-size: 1.8rem; flex-shrink: 0; }
+.extra-title { font-weight: 700; color: var(--charcoal); margin-bottom: 4px; font-size: 0.95rem; }
+.extra-desc { font-size: 0.84rem; color: var(--text-body); line-height: 1.6; }
+
+/* 備註 */
+.pricing-notes {
+  margin-top: 20px;
+  background: var(--mist);
+  border-radius: 12px; padding: 24px 28px;
+}
+.pricing-notes-title {
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage-dark); margin-bottom: 12px;
+}
+.pricing-notes ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pricing-notes li {
+  font-size: 0.82rem; line-height: 1.7; color: var(--text-body);
+  display: flex; gap: 8px;
+}
+.pricing-notes li::before { content: '※'; color: var(--gold); flex-shrink: 0; }
+
+@media (max-width: 600px) {
+  .extra-fees { grid-template-columns: 1fr 1fr; }
+  .pricing-notes { padding: 18px 16px; }
 }
 
 /* ─── SCROLL REVEAL ─── */
@@ -550,6 +623,7 @@ footer {
     <a href="#about">品牌精神</a>
     <a href="#features">服務核心</a>
     <a href="#promise">照顧承諾</a>
+    <a href="#pricing">收費標準</a>
     <a href="#workflow">申請流程</a>
     <a href="#contact" class="nav-cta">立即諮詢</a>
   </div>
@@ -563,6 +637,7 @@ footer {
   <a href="#about" class="mobile-link">品牌精神</a>
   <a href="#features" class="mobile-link">服務核心</a>
   <a href="#promise" class="mobile-link">照顧承諾</a>
+  <a href="#pricing" class="mobile-link">收費標準</a>
   <a href="#workflow" class="mobile-link">申請流程</a>
   <a href="reservation.html" class="mobile-link mobile-cta">預約參觀</a>
 </div>
@@ -617,7 +692,7 @@ footer {
     </div>
     <div class="reveal reveal-delay-2">
       <div class="philosophy-image-wrap">
-        <img src="https://veeonehealth.com/wp-content/uploads/2022/05/iStock-1343674662-scaled-e1653072580775.jpg" alt="今樂日照照護現場－長輩開心聊天">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=800" alt="今樂日照照護現場－長輩開心聊天">
         <div class="img-badge">✦ 精緻<br>小班制</div>
       </div>
       <p style="margin-top:10px; font-size:0.72rem; color:#bbb; text-align:right; letter-spacing:0.03em;">
@@ -697,30 +772,112 @@ footer {
         <tr>
           <td>照顧理念</td>
           <td>減法照顧、練習自立 ✦</td>
-          <td>團體化、較多代勞</td>          
+          <td>團體化、較多代勞</td>
         </tr>
         <tr>
           <td>復能專業</td>
           <td>精準運動監測與銜接課程 ✦</td>
-          <td>一般性體操活動</td>         
+          <td>一般性體操活動</td>
         </tr>
         <tr>
           <td>環境氛圍</td>
           <td>單純15人精緻空間 ✦</td>
-          <td>人數多（30–60人）</td>          
+          <td>人數多（30–60人）</td>
         </tr>
         <tr>
           <td>入托評估</td>
           <td>核發專業功能觀察報告 ✦</td>
-          <td>口頭詢問或簡單填表</td>          
+          <td>口頭詢問或簡單填表</td>
         </tr>
         <tr>
           <td>家屬溝通</td>
           <td>每日LINE即時數位聯繫簿 ✦</td>
-          <td>電話或書面不定時</td>          
+          <td>電話或書面不定時</td>
         </tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="pricing-section" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">收費標準</h2>
+  <div class="section-line"></div>
+
+  <!-- 主表格 -->
+  <div class="pricing-table-wrap reveal">
+    <div class="table-scroll">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th rowspan="2">長照等級</th>
+            <th rowspan="2">每日<br>服務費用</th>
+            <th colspan="3">每日自付費用</th>
+            <th rowspan="2">每月補助<br>額度上限</th>
+            <th rowspan="2">每月可用<br>補助日數</th>
+          </tr>
+          <tr>
+            <th class="sub-th">一般戶<br>(16%)</th>
+            <th class="sub-th">中低收入戶<br>(5%)</th>
+            <th class="sub-th">低收入戶<br>(0%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>第 2 級</td><td>675 元</td><td>108 元</td><td>33 元</td><td rowspan="7" class="zero-td">0 元</td><td>10,020 元</td><td>14 天</td></tr>
+          <tr><td>第 3 級</td><td>840 元</td><td>134 元</td><td>42 元</td><td>15,460 元</td><td>18 天</td></tr>
+          <tr><td>第 4 級</td><td>920 元</td><td>147 元</td><td>46 元</td><td>18,580 元</td><td>20 天</td></tr>
+          <tr><td>第 5 級</td><td>1,045 元</td><td>167 元</td><td>52 元</td><td>24,100 元</td><td>23 天</td></tr>
+          <tr><td>第 6 級</td><td>1,130 元</td><td>180 元</td><td>56 元</td><td>28,070 元</td><td>24 天</td></tr>
+          <tr><td>第 7 級</td><td>1,210 元</td><td>193 元</td><td>60 元</td><td>32,090 元</td><td>26 天</td></tr>
+          <tr><td>第 8 級</td><td>1,285 元</td><td>205 元</td><td>64 元</td><td>36,180 元</td><td>28 天</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 額外費用 -->
+  <div class="extra-fees reveal reveal-delay-1">
+    <div class="extra-fee-card">
+      <div class="extra-icon">🍱</div>
+      <div>
+        <div class="extra-title">餐點費</div>
+        <div class="extra-desc">內含餐點費用，無需另外支付</div>
+      </div>
+    </div>
+    <div class="extra-fee-card">
+      <div class="extra-icon">⏰</div>
+      <div>
+        <div class="extra-title">超時費用</div>
+        <div class="extra-desc">超出服務時間，每小時加收 200 元</div>
+      </div>
+    </div>
+    <div class="extra-fee-card">
+      <div class="extra-icon">🚐</div>
+      <div>
+        <div class="extra-title">交通接送（10公里內／單趟）</div>
+        <div class="extra-desc">單趟 $115，政府有補助；超過補助額度則需自費</div>
+      </div>
+    </div>
+    <div class="extra-fee-card">
+      <div class="extra-icon">🛁</div>
+      <div>
+        <div class="extra-title">沐浴服務</div>
+        <div class="extra-desc">每次 $200</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 備註 -->
+  <div class="pricing-notes reveal reveal-delay-2">
+    <div class="pricing-notes-title">收費說明</div>
+    <ul>
+      <li>本收費標準及給付對象身份別為依據衛生福利部公告之「長期照顧服務申請及給付辦法」訂定。</li>
+      <li>每月補助額度上限及補助日數為採用「長照四包錢」中的「照顧及專業服務」補助試算。</li>
+      <li>有聘僱外看的家庭亦可使用喘息、短照補助使用日間照顧服務，詳情請洽各中心服務人員。</li>
+      <li>每日服務費用不含個人耗材、交通接送、身體清潔、特殊照護及其他經主管機關核定之自費項目。</li>
+      <li>超出補助額度者使用或不符合長照補助資格者，每日服務費用需全額自付。</li>
+    </ul>
   </div>
 </section>
 
