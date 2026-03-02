@@ -439,25 +439,101 @@ footer {
 .reveal-delay-3 { transition-delay: 0.3s; }
 
 /* ─── RESPONSIVE ─── */
+/* ─── 漢堡選單按鈕 ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 6px;
+  z-index: 200;
+  cursor: pointer;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* 手機版抽屜選單 */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(250,247,242,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 150;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--charcoal);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--sage-dark); }
+.mobile-menu .mobile-cta {
+  padding: 14px 36px;
+  background: var(--gold);
+  color: white !important;
+  border-radius: 50px;
+  font-size: 1rem !important;
+  font-family: 'Noto Sans TC', sans-serif !important;
+  letter-spacing: 0.1em;
+}
+
+/* 比較表格捲動容器 */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-scroll table { min-width: 540px; }
+
 @media (max-width: 900px) {
   .hero-visual { display: none; }
   .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
   .features-grid { grid-template-columns: 1fr; }
-  .promise-grid { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr; }
+  .promise-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
   .steps-grid::before { display: none; }
-  .footer-top { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
   .cursor, .cursor-ring { display: none; }
   * { cursor: auto; }
+  .qr-card { width: 100%; max-width: 280px; margin: 0 auto; }
+  .footer-body { max-width: 100%; }
 }
 
 @media (max-width: 600px) {
-  section { padding: 70px 5%; }
-  .hero { padding: 100px 5% 60px; }
-  .hero-actions { flex-direction: column; }
-  .btn-gold, .btn-outline { text-align: center; }
+  section { padding: 60px 5%; }
+  .hero { padding: 90px 5% 60px; min-height: 85vh; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn-gold, .btn-outline { text-align: center; padding: 14px 20px; }
+  .hero-badge { font-size: 0.72rem; }
+  .section-title { font-size: 1.7rem; }
+  .feature-item { padding: 32px 24px; }
+  .promise-card { padding: 28px 24px; }
+  .promise-num { font-size: 2.2rem; }
+  .footer-headline { font-size: 2rem; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .philosophy-quote { font-size: 1.2rem; padding-left: 1.2rem; }
+  .step-item { padding: 0 12px; }
+  nav { padding: 1rem 5%; }
+  .logo-main { font-size: 1rem; }
+  .logo-sub { font-size: 0.62rem; }
 }
 </style>
 </head>
@@ -478,7 +554,19 @@ footer {
     <a href="#workflow">申請流程</a>
     <a href="#contact" class="nav-cta">立即諮詢</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- 手機版抽屜選單 -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">品牌精神</a>
+  <a href="#features" class="mobile-link">服務核心</a>
+  <a href="#promise" class="mobile-link">照顧承諾</a>
+  <a href="#workflow" class="mobile-link">申請流程</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEsbkS3Nrcg2kpJxargYj0bxruMtZXhBUO7fPhnfZuVcpWDg/viewform?usp=dialog" target="_blank" class="mobile-link mobile-cta">立即諮詢</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
@@ -529,7 +617,11 @@ footer {
       <p class="philosophy-text">透過專業運動監測，我們確保每份努力都能轉化為復能的動力，讓長輩在家庭與社區之間，找到屬於自己最美好的一天。</p>
     </div>
     <div class="philosophy-image-wrap reveal reveal-delay-2">
-      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=800" alt="今樂日照照護現場－長輩開心聊天">
+      <img src="https://veeonehealth.com/wp-content/uploads/2022/05/iStock-1343674662-scaled-e1653072580775.jpg" alt="今樂日照照護現場－長輩開心聊天">
+      <p style="margin-top:8px; font-size:0.72rem; color:#aaa; text-align:right; letter-spacing:0.03em;">
+        Photo by <a href="ar.inspiredpencil.com/Group Of Elderly People" target="_blank" style="color:#aaa; text-decoration:underline;">Priscilla Du Preez</a> on 
+        <a href="https://unsplash.com" target="_blank" style="color:#aaa; text-decoration:underline;">Unsplash</a>
+      </p>
       <div class="img-badge">✦ 精緻<br>小班制</div>
     </div>
   </div>
@@ -591,7 +683,7 @@ footer {
   <div class="section-label">Why Us</div>
   <h2 class="section-title">為什麼選擇今樂？</h2>
   <div class="section-line"></div>
-  <div class="table-wrap reveal">
+  <div class="table-wrap reveal"><div class="table-scroll">
     <table>
       <thead>
         <tr>
@@ -666,13 +758,7 @@ footer {
         <li>
           <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
             <span class="contact-icon icon-map" style="display:flex;align-items:center;justify-content:center;background:rgba(234,67,53,0.12);">
-              <svg width="22" height="22" viewBox="0 0 92.3 132.3" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.6 16.5l21.8 18.3L60.2 2.2z"/>
-                <path fill="#ea4335" d="M10.6 16.5C4 24.2 0 34.1 0 46.1c0 8.3 1.7 14.7 4.6 20.4l27.8-32L10.6 16.5z"/>
-                <path fill="#fbbc04" d="M46.2 28.5c9.7 0 17.5 7.8 17.5 17.5 0 4.3-1.6 8.3-4.2 11.3.8-.9 20.6-23.7 20.6-23.7C74.3 23.6 61.3 16 46.2 16c-3.8 0-7.5.6-10.9 1.6l11 12.1c-.1 0 0-.2-.1-1.2z"/>
-                <path fill="#34a853" d="M46.2 63.6c-9.7 0-17.5-7.8-17.5-17.5 0-4.3 1.6-8.3 4.2-11.3L10.6 67.4C17 83.7 30.6 96.3 46 103.5l28.4-32.6c-6.7 4.3-14.1 6.5-22.2 6.5-.6.1-.8.2 0 0z"/>
-                <path fill="#1a73e8" d="M92.3 46.2c0-11.8-4.4-22.6-11.6-30.8L59.5 39.9c2.6 3 4.2 7 4.2 11.3 0 9.7-7.8 17.5-17.5 17.5-4.8 0-7.5-1.7-10.2-3.6L8.2 97.6c7.6 16.6 24.5 28.7 44.2 28.7 4.8 0 13.8-1.2 21.1-5.8.7-6.2 1.1-11.4 1.5-15.5-3.7 2-7.9 3-12.3 3-6.9 0-12.9-2.8-17.3-7.3l29.4-33.7c9.1-7.3 17.5-14.7 17.5-20.8z"/>
-              </svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/></svg>
             </span>
             <span>桃園市八德區介壽路二段252巷21號1樓 <span style="font-size:0.78rem;opacity:0.6;margin-left:4px;">點擊開啟地圖</span></span>
           </a>
@@ -740,6 +826,22 @@ document.querySelectorAll('a,button').forEach(el => {
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+  document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+});
+document.querySelectorAll(".mobile-link").forEach(link => {
+  link.addEventListener("click", () => {
+    hamburger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+    document.body.style.overflow = "";
+  });
 });
 
 // Scroll reveal
