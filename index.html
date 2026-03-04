@@ -384,45 +384,36 @@ tbody td:last-child { text-align: center; color: #999; }
 
 /* ─── CONTACT / FOOTER ─── */
 footer {
-  background: var(--charcoal); color: white;
-  padding: 80px 6% 40px;
+  background: var(--cream); color: var(--charcoal);
+  padding: 56px 6% 32px;
+  border-top: 1px solid rgba(107,143,113,0.15);
 }
-.footer-top {
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 80px; align-items: start;
-  margin-bottom: 60px;
+.footer-brand {
+  text-align: center;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(107,143,113,0.15);
+  margin-bottom: 28px;
 }
-.footer-headline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.2; color: white; margin-bottom: 1rem;
+.footer-brand-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--sage-dark); margin-bottom: 10px;
+  letter-spacing: 0.05em;
 }
-.footer-headline em { font-style: italic; color: var(--gold-light); }
-.footer-body { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 480px; margin-bottom: 2rem; font-family: 'Noto Serif TC', serif; font-weight: 300; }
-.contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-.contact-list li { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: rgba(255,255,255,0.8); }
-.contact-list a { color: inherit; text-decoration: none; transition: color 0.3s; }
-.contact-list a:hover { color: var(--gold-light); }
-.contact-icon { width: 36px; height: 36px; border-radius: 8px; display:flex;align-items:center;justify-content:center; font-size: 0.9rem; flex-shrink: 0; }
-.icon-map { background: rgba(107,143,113,0.25); }
-.icon-phone { background: rgba(201,168,76,0.25); }
-.icon-line { background: rgba(6,199,85,0.2); }
-
-.qr-card {
-  background: white; padding: 28px;
-  border-radius: 20px; text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-  flex-shrink: 0;
+.footer-brand-services {
+  font-size: 0.88rem; color: var(--text-body);
+  letter-spacing: 0.06em; line-height: 1.8;
 }
-.qr-card img { width: 160px; height: 160px; border-radius: 10px; margin-bottom: 10px; }
-.qr-label { font-size: 0.82rem; color: #888; }
-.qr-id { font-size: 0.9rem; color: #06C755; font-weight: 700; margin-top: 4px; }
-
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 28px;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; color: rgba(255,255,255,0.3);
+  font-size: 0.75rem; color: rgba(74,74,74,0.5);
+}
+
+@media (max-width: 600px) {
+  footer { padding: 40px 5% 24px; }
+  .footer-brand-name { font-size: 1.2rem; }
+  .footer-brand-services { font-size: 0.8rem; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 
 /* ─── PRICING ─── */
@@ -505,6 +496,89 @@ footer {
   .pricing-table thead .sub-th { font-size: 0.72rem; }
   .pricing-table tbody td { padding: 12px 10px; font-size: 0.86rem; }
   .pricing-section { padding: 60px 5%; }
+}
+
+/* ─── LOCATION ─── */
+.location-section { background: var(--cream); }
+.location-card {
+  margin-top: 48px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+}
+.location-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  min-height: 280px;
+}
+.location-info {
+  background: var(--warm-white);
+  border-left: 1px solid rgba(107,143,113,0.12);
+  padding: 48px 44px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.location-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--sage-dark); margin-bottom: 6px;
+}
+.location-sub {
+  font-size: 0.8rem; color: var(--text-body);
+  margin-bottom: 28px; letter-spacing: 0.03em; opacity: 0.7;
+}
+.location-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 14px;
+  margin-bottom: 32px;
+}
+.location-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.88rem; color: var(--text-body); line-height: 1.6;
+}
+.location-list a {
+  color: var(--text-body); text-decoration: none; transition: color 0.3s;
+  display: flex; align-items: flex-start; gap: 12px; width: 100%;
+}
+.location-list a:hover { color: var(--sage-dark); }
+.loc-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.loc-hint {
+  font-size: 0.72rem; opacity: 0.45; margin-left: 6px; white-space: nowrap;
+}
+.location-btns {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.loc-btn {
+  padding: 10px 22px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; transition: all 0.3s;
+  letter-spacing: 0.05em;
+}
+.loc-btn-line {
+  background: #06C755; color: white;
+}
+.loc-btn-line:hover { background: #05a847; transform: translateY(-2px); }
+.loc-btn-map {
+  background: transparent; color: var(--charcoal);
+  border: 1.5px solid rgba(42,42,42,0.25);
+}
+.loc-btn-map:hover { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+
+@media (max-width: 900px) {
+  .location-card { grid-template-columns: 1fr; }
+  .location-img { min-height: 240px; max-height: 300px; }
+  .location-info { padding: 36px 32px; }
+}
+@media (max-width: 600px) {
+  .location-info { padding: 28px 24px; }
+  .location-name { font-size: 1.1rem; }
+  .location-list li { font-size: 0.82rem; }
+  .loc-hint { display: none; }
+  .location-btns { flex-direction: column; }
+  .loc-btn { text-align: center; }
 }
 
 /* ─── SCROLL REVEAL ─── */
@@ -608,11 +682,6 @@ footer {
   .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
   .steps-grid::before { display: none; }
   .step-link { display: block; text-align: center; }
-
-  /* Footer */
-  .footer-top { grid-template-columns: 1fr; gap: 40px; }
-  .footer-body { max-width: 100%; }
-  .qr-card { width: 100%; max-width: 280px; margin: 0 auto; }
 }
 
 @media (max-width: 600px) {
@@ -669,10 +738,7 @@ footer {
   .step-link { display: block; width: 100%; text-align: center; box-sizing: border-box; }
 
   /* Footer */
-  footer { padding: 60px 5% 32px; }
-  .footer-headline { font-size: 2rem; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .contact-list li { font-size: 0.82rem; }
 }
 </style>
 </head>
@@ -689,10 +755,10 @@ footer {
   <div class="nav-links">
     <a href="#about">品牌精神</a>
     <a href="#features">服務核心</a>
-    <a href="#promise">照顧承諾</a>
     <a href="#pricing">收費標準</a>
+    <a href="#location">機構位置</a>
     <a href="#workflow">申請流程</a>
-    <a href="#contact" class="nav-cta">立即諮詢</a>
+    <a href="reservation.html" class="nav-cta">預約參觀</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="選單">
     <span></span><span></span><span></span>
@@ -703,8 +769,8 @@ footer {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mobile-link">品牌精神</a>
   <a href="#features" class="mobile-link">服務核心</a>
-  <a href="#promise" class="mobile-link">照顧承諾</a>
   <a href="#pricing" class="mobile-link">收費標準</a>
+  <a href="#location" class="mobile-link">機構位置</a>
   <a href="#workflow" class="mobile-link">申請流程</a>
   <a href="reservation.html" class="mobile-link mobile-cta">預約參觀</a>
 </div>
@@ -974,49 +1040,64 @@ footer {
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer id="contact">
-  <div class="footer-top">
-    <div>
-      <h2 class="footer-headline">讓長輩<br><em>重拾笑容</em></h2>
-      <p class="footer-body">如果您正在尋找讓長輩重拾笑容的地方，歡迎預約參觀，感受溫暖的減法照顧。我們的團隊隨時準備好為您和您的家人提供最細心的服務。</p>
-      <ul class="contact-list">
+<!-- ═══ LOCATION ═══ -->
+<section class="location-section" id="location">
+  <div class="section-label">Our Location</div>
+  <h2 class="section-title">機構位置</h2>
+  <div class="section-line"></div>
+
+  <div class="location-card reveal">
+    <img src="jinlerdaycare_3d.jpg" alt="今樂日照中心外觀" class="location-img">
+    <div class="location-info">
+      <div class="location-name">今樂日間照顧 桃園市八德區</div>
+      <div class="location-sub">今樂日照健康有限公司附設桃園市私立今樂社區長照機構</div>
+      <ul class="location-list">
         <li>
-          <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
-            <span class="contact-icon icon-map" style="display:flex;align-items:center;justify-content:center;background:rgba(234,67,53,0.12);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/></svg>
+          <a href="tel:033670090">
+            <span class="loc-icon" style="background:rgba(52,168,83,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5.5 3.5C5.5 3.5 4 3.5 3 4.5C2 5.5 2 7 2 7C2 7 2 12.5 7.5 18C13 23.5 18.5 23.5 18.5 23.5C18.5 23.5 20 23.5 21 22.5C22 21.5 22 20 22 20L19.5 17.5C19.5 17.5 18.5 16.5 17.5 17L15.5 18C15.5 18 14.5 18.5 13.5 17.5L7.5 11.5C6.5 10.5 7 9.5 7 9.5L8 7.5C8.5 6.5 7.5 5.5 7.5 5.5L5.5 3.5Z" fill="#34A853" stroke="#34A853" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            <span>桃園市八德區介壽路二段252巷21號1樓 <span style="font-size:0.78rem;opacity:0.6;margin-left:4px;">點擊開啟地圖</span></span>
+            <span>電話：(03) 367-0090 <span class="loc-hint">點擊撥打電話</span></span>
           </a>
         </li>
         <li>
-          <a href="tel:033670090" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
-            <span class="contact-icon icon-phone" style="display:flex;align-items:center;justify-content:center;background:rgba(52,168,83,0.15);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.5 3.5C5.5 3.5 4 3.5 3 4.5C2 5.5 2 7 2 7C2 7 2 12.5 7.5 18C13 23.5 18.5 23.5 18.5 23.5C18.5 23.5 20 23.5 21 22.5C22 21.5 22 20 22 20L19.5 17.5C19.5 17.5 18.5 16.5 17.5 17L15.5 18C15.5 18 14.5 18.5 13.5 17.5L7.5 11.5C6.5 10.5 7 9.5 7 9.5L8 7.5C8.5 6.5 7.5 5.5 7.5 5.5L5.5 3.5Z" fill="#34A853" stroke="#34A853" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span>(03) 367-0090 <span style="font-size:0.78rem;opacity:0.6;margin-left:4px;">點擊撥打電話</span></span>
-          </a>
+          <span class="loc-icon" style="background:rgba(234,67,53,0.15);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/></svg>
+          </span>
+          <span>地址：桃園市八德區介壽路二段252巷21號1樓</span>
         </li>
         <li>
-          <a href="https://line.me/ti/p/@560oaeip" target="_blank" style="display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;">
-            <span class="contact-icon icon-line" style="background:rgba(6,199,85,0.2);display:flex;align-items:center;justify-content:center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#06C755" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-              </svg>
-            </span>
-            <span>LINE ID：<strong style="color:#06C755;">@560oaeip</strong> <span style="font-size:0.78rem;opacity:0.6;margin-left:4px;">點擊加入好友</span></span>
-          </a>
+          <span class="loc-icon" style="background:rgba(6,199,85,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#06C755"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          </span>
+          <span>LINE ID：<strong style="color:#06C755;">@560oaeip</strong></span>
+        </li>
+        <li>
+          <span class="loc-icon" style="background:rgba(201,168,76,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="#c9a84c"/></svg>
+          </span>
+          <span>服務人數：上限 15 人</span>
+        </li>
+        <li>
+          <span class="loc-icon" style="background:rgba(107,143,113,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="#6b8f71"/></svg>
+          </span>
+          <span>服務時間：週一至週五 8:30 ~ 17:30（例假日除外）</span>
         </li>
       </ul>
+      <div class="location-btns">
+        <a href="https://line.me/ti/p/@560oaeip" target="_blank" class="loc-btn loc-btn-line">LINE 聯繫</a>
+        <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
+      </div>
     </div>
-    <div class="qr-card">
-      <p style="font-size:0.82rem;color:#666;margin-bottom:8px;font-weight:600;">今樂 LINE 好友</p>
-      <img src="https://qr-official.line.me/gs/M_560oaeip_GW.png?oat_content=qr" alt="LINE QR Code">
-      <p class="qr-label">立即掃描諮詢</p>
-      <p class="qr-id">@560oaeip</p>
-    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="contact">
+  <div class="footer-brand">
+    <div class="footer-brand-name">今樂日間照顧</div>
+    <div class="footer-brand-services">日間照顧．短照服務．喘息服務．交通接送．長照諮詢與協助</div>
   </div>
   <div class="footer-bottom">
     <span>© 今樂日照健康有限公司 版權所有</span>
