@@ -494,8 +494,17 @@ footer {
 .pricing-notes li::before { content: '※'; color: var(--gold); flex-shrink: 0; }
 
 @media (max-width: 600px) {
-  .extra-fees { grid-template-columns: 1fr 1fr; }
+  .extra-fees { grid-template-columns: 1fr; }
+  .extra-fee-card { padding: 16px 18px; }
+  .extra-icon { font-size: 1.5rem; }
+  .extra-title { font-size: 0.88rem; }
+  .extra-desc { font-size: 0.8rem; }
   .pricing-notes { padding: 18px 16px; }
+  .pricing-notes li { font-size: 0.8rem; }
+  .pricing-table thead th { padding: 12px 10px; font-size: 0.78rem; }
+  .pricing-table thead .sub-th { font-size: 0.72rem; }
+  .pricing-table tbody td { padding: 12px 10px; font-size: 0.86rem; }
+  .pricing-section { padding: 60px 5%; }
 }
 
 /* ─── SCROLL REVEAL ─── */
@@ -574,38 +583,96 @@ footer {
 .table-scroll table { min-width: 540px; }
 
 @media (max-width: 900px) {
-  .hero-visual { display: none; }
-  .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
-  .features-grid { grid-template-columns: 1fr; }
-  .promise-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-  .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .steps-grid::before { display: none; }
-  .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  /* Nav */
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .cursor, .cursor-ring { display: none; }
   * { cursor: auto; }
-  .qr-card { width: 100%; max-width: 280px; margin: 0 auto; }
+
+  /* Hero */
+  .hero-visual { display: none; }
+
+  /* Philosophy */
+  .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Features */
+  .features-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Promise */
+  .promise-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+  /* Pricing */
+  .extra-fees { grid-template-columns: 1fr 1fr; }
+
+  /* Workflow */
+  .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .steps-grid::before { display: none; }
+  .step-link { display: block; text-align: center; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
   .footer-body { max-width: 100%; }
+  .qr-card { width: 100%; max-width: 280px; margin: 0 auto; }
 }
 
 @media (max-width: 600px) {
+  /* Base */
   section { padding: 60px 5%; }
+
+  /* Nav */
+  nav { padding: 1rem 5%; }
+  .logo-main { font-size: 1rem; }
+  .logo-sub { font-size: 0.62rem; }
+
+  /* Hero */
   .hero { padding: 90px 5% 60px; min-height: 85vh; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .btn-gold, .btn-outline { text-align: center; padding: 14px 20px; }
   .hero-badge { font-size: 0.72rem; }
-  .section-title { font-size: 1.7rem; }
+
+  /* Section titles */
+  .section-title { font-size: 1.7rem; max-width: 100%; }
+
+  /* Philosophy */
+  .philosophy-quote { font-size: 1.2rem; padding-left: 1.2rem; }
+  .img-badge { padding: 14px 18px; font-size: 0.88rem; }
+
+  /* Features */
+  .features-grid { grid-template-columns: 1fr; }
   .feature-item { padding: 32px 24px; }
+  .feature-number { font-size: 2.8rem; }
+
+  /* Promise */
+  .promise-grid { grid-template-columns: 1fr; }
   .promise-card { padding: 28px 24px; }
   .promise-num { font-size: 2.2rem; }
+
+  /* Compare table */
+  thead th { padding: 14px 16px; font-size: 0.8rem; }
+  tbody td { padding: 14px 16px; font-size: 0.88rem; }
+
+  /* Pricing */
+  .pricing-section { padding: 60px 5%; }
+  .extra-fees { grid-template-columns: 1fr; }
+  .extra-fee-card { padding: 16px 18px; }
+  .extra-icon { font-size: 1.5rem; }
+  .extra-title { font-size: 0.88rem; }
+  .extra-desc { font-size: 0.8rem; }
+  .pricing-table thead th { padding: 12px 10px; font-size: 0.78rem; }
+  .pricing-table thead .sub-th { font-size: 0.72rem; }
+  .pricing-table tbody td { padding: 12px 10px; font-size: 0.86rem; }
+  .pricing-notes { padding: 18px 16px; }
+  .pricing-notes li { font-size: 0.8rem; }
+
+  /* Workflow */
+  .step-item { padding: 0 12px; }
+  .step-link { display: block; width: 100%; text-align: center; box-sizing: border-box; }
+
+  /* Footer */
+  footer { padding: 60px 5% 32px; }
   .footer-headline { font-size: 2rem; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .philosophy-quote { font-size: 1.2rem; padding-left: 1.2rem; }
-  .step-item { padding: 0 12px; }
-  nav { padding: 1rem 5%; }
-  .logo-main { font-size: 1rem; }
-  .logo-sub { font-size: 0.62rem; }
+  .contact-list li { font-size: 0.82rem; }
 }
 </style>
 </head>
@@ -849,7 +916,7 @@ footer {
       <div class="extra-icon">⏰</div>
       <div>
         <div class="extra-title">超時費用</div>
-        <div class="extra-desc">每半小時以 125 元未滿半小時以半小時計，機構每日延時收托至晚上 7:00。</div>
+        <div class="extra-desc">每半小時以 125 元未滿半小時以半小時計，機構每日延時收托至晚上 7:00</div>
       </div>
     </div>
     <div class="extra-fee-card">
