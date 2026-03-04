@@ -483,6 +483,16 @@ footer {
   display: flex; gap: 8px;
 }
 .pricing-notes li::before { content: '※'; color: var(--gold); flex-shrink: 0; }
+.cms-link-row { margin-top: 16px; text-align: right; }
+.cms-link {
+  font-size: 0.88rem; color: var(--sage-dark);
+  text-decoration: none; font-weight: 600;
+  letter-spacing: 0.05em;
+  border-bottom: 1.5px solid var(--sage-light);
+  padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.cms-link:hover { color: var(--gold); border-color: var(--gold); }
 
 @media (max-width: 600px) {
   .extra-fees { grid-template-columns: 1fr; }
@@ -1011,6 +1021,9 @@ footer {
       <li>每日服務費用不含個人耗材、交通接送、身體清潔、特殊照護及其他經主管機關核定之自費項目。</li>
       <li>超出補助額度者使用或不符合長照補助資格者，每日服務費用需全額自付。</li>
     </ul>
+  </div>
+    <div class="cms-link-row reveal reveal-delay-3">
+    <a href="cms_level.html" class="cms-link">CMS 等級說明 →</a>
   </div>
 </section>
 
