@@ -349,38 +349,120 @@ tbody td:last-child { text-align: center; color: #999; }
 
 /* ─── WORKFLOW ─── */
 .workflow-section { background: var(--cream); }
+
 .steps-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 0; margin-top: 60px; position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 60px;
+  position: relative;
 }
-.steps-grid::before {
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+.step-item:first-child { padding-left: 0; }
+.step-item:last-child { padding-right: 0; }
+
+/* 連接線：各 step-item 自行畫線 */
+.step-item:nth-child(1)::after {
   content: '';
-  position: absolute; top: 52px; left: calc(16.67% + 24px); right: calc(16.67% + 24px); height: 1px;
-  background: linear-gradient(90deg, var(--sage-light), var(--gold), var(--sage-light));
+  position: absolute;
+  top: 25px;
+  left: 52px;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage-light), var(--gold));
   z-index: 0;
 }
-.step-item {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; padding: 0 24px; position: relative; z-index: 1;
+.step-item:nth-child(2)::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--sage-light), var(--gold));
+  z-index: 0;
 }
+.step-item:nth-child(3)::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: calc(100% - 52px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--sage-light));
+  z-index: 0;
+}
+
 .step-circle {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: white; border: 2px solid var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.5rem; font-weight: 700; color: var(--gold);
-  font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
   box-shadow: 0 4px 16px rgba(201,168,76,0.2);
+  position: relative;
+  z-index: 2;
+  background: white;
 }
-.step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; color: var(--charcoal); }
-.step-desc { font-size: 1rem; line-height: 1.8; color: var(--text-body); }
+
+.step-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+  color: var(--charcoal);
+  line-height: 1.4;
+}
+
+.step-desc {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: var(--text-body);
+  flex: 1;
+}
+
+.step-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1.2rem;
+  width: 100%;
+}
+
 .step-link {
-  display: inline-block; margin-top: 1rem;
-  padding: 7px 16px; border-radius: 50px;
-  background: var(--sage-dark); color: white;
-  font-size: 0.86rem; text-decoration: none;
-  transition: background 0.3s; letter-spacing: 0.05em;
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: var(--sage-dark);
+  color: white;
+  font-size: 0.84rem;
+  text-decoration: none;
+  transition: background 0.3s;
+  letter-spacing: 0.05em;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
 }
 .step-link:hover { background: var(--terracotta); }
+.step-link.gold { background: var(--gold); }
+.step-link.gold:hover { background: var(--terracotta); }
 
 /* ─── CONTACT / FOOTER ─── */
 footer {
@@ -469,7 +551,6 @@ footer {
   background: rgba(107,143,113,0.05) !important;
 }
 
-/* 額外費用卡片 */
 .extra-fees {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 16px; margin-top: 20px;
@@ -485,7 +566,6 @@ footer {
 .extra-title { font-weight: 700; color: var(--charcoal); margin-bottom: 4px; font-size: 0.95rem; }
 .extra-desc { font-size: 0.84rem; color: var(--text-body); line-height: 1.6; }
 
-/* 備註 */
 .pricing-notes {
   margin-top: 20px;
   background: var(--mist);
@@ -587,9 +667,7 @@ footer {
   text-decoration: none; transition: all 0.3s;
   letter-spacing: 0.05em;
 }
-.loc-btn-line {
-  background: #06C755; color: white;
-}
+.loc-btn-line { background: #06C755; color: white; }
 .loc-btn-line:hover { background: #05a847; transform: translateY(-2px); }
 .loc-btn-map {
   background: transparent; color: var(--charcoal);
@@ -616,158 +694,117 @@ footer {
   opacity: 0; transform: translateY(32px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible {
-  opacity: 1; transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
-/* ─── RESPONSIVE ─── */
 /* ─── 漢堡選單按鈕 ─── */
 .hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  padding: 6px;
-  z-index: 200;
-  cursor: pointer;
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 6px; z-index: 200; cursor: pointer;
 }
 .hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--charcoal);
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  display: block; width: 24px; height: 2px;
+  background: var(--charcoal); border-radius: 2px; transition: all 0.3s ease;
 }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* 手機版抽屜選單 */
 .mobile-menu {
-  display: none;
-  position: fixed;
+  display: none; position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(250,247,242,0.97);
   backdrop-filter: blur(20px);
-  z-index: 150;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
+  z-index: 150; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2.5rem;
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  color: var(--charcoal);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.3s;
+  font-family: 'Playfair Display', serif; font-size: 1.8rem;
+  color: var(--charcoal); text-decoration: none;
+  letter-spacing: 0.05em; transition: color 0.3s;
 }
 .mobile-menu a:hover { color: var(--sage-dark); }
 .mobile-menu .mobile-cta {
-  padding: 14px 36px;
-  background: var(--gold);
-  color: white !important;
-  border-radius: 50px;
-  font-size: 1rem !important;
-  font-family: 'Noto Sans TC', sans-serif !important;
-  letter-spacing: 0.1em;
+  padding: 14px 36px; background: var(--gold); color: white !important;
+  border-radius: 50px; font-size: 1rem !important;
+  font-family: 'Noto Sans TC', sans-serif !important; letter-spacing: 0.1em;
 }
 
-/* 比較表格捲動容器 */
-.table-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .table-scroll table { min-width: 540px; }
 
+/* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
-  /* Nav */
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .cursor, .cursor-ring { display: none; }
   * { cursor: auto; }
-
-  /* Hero */
   .hero-visual { display: none; }
-
-  /* Philosophy */
   .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
-
-  /* Features */
   .features-grid { grid-template-columns: 1fr 1fr; }
-
-  /* Promise */
   .promise-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-
-  /* Pricing */
   .extra-fees { grid-template-columns: 1fr 1fr; }
 
-  /* Workflow */
-  .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .steps-grid::before { display: none; }
-  .step-link { display: block; text-align: center; }
+  /* WORKFLOW 手機版 */
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 40px;
+  }
+  /* 隱藏桌面版連接線 */
+  .step-item::before,
+  .step-item::after { display: none !important; }
+
+  .step-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(107,143,113,0.15);
+    text-align: left;
+  }
+  .step-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .step-item:first-child { padding-top: 0; }
+  .step-circle { margin-bottom: 0; flex-shrink: 0; margin-top: 2px; }
+  .step-content { flex: 1; }
+  .step-title { font-size: 1rem; margin-bottom: 0.6rem; }
+  .step-desc { font-size: 0.9rem; }
+  .step-links { flex-direction: row; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .step-link { font-size: 0.82rem; padding: 7px 16px; }
 }
 
 @media (max-width: 600px) {
-  /* Base */
   section { padding: 60px 5%; }
-
-  /* Nav */
   nav { padding: 1rem 5%; }
   .logo-main { font-size: 1rem; }
   .logo-sub { font-size: 0.62rem; }
-
-  /* Hero */
   .hero { padding: 90px 5% 60px; min-height: 85vh; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .btn-gold, .btn-outline { text-align: center; padding: 14px 20px; }
   .hero-badge { font-size: 0.72rem; }
-
-  /* Section titles */
   .section-title { font-size: 1.7rem; max-width: 100%; }
-
-  /* Philosophy */
   .philosophy-quote { font-size: 1.2rem; padding-left: 1.2rem; }
   .img-badge { padding: 14px 18px; font-size: 0.88rem; }
-
-  /* Features */
   .features-grid { grid-template-columns: 1fr; }
   .feature-item { padding: 32px 24px; }
   .feature-number { font-size: 2.8rem; }
-
-  /* Promise */
   .promise-grid { grid-template-columns: 1fr; }
   .promise-card { padding: 28px 24px; }
   .promise-num { font-size: 2.2rem; }
-
-  /* Compare table */
   thead th { padding: 14px 16px; font-size: 0.8rem; }
   tbody td { padding: 14px 16px; font-size: 0.88rem; }
 
-  /* Pricing */
-  .pricing-section { padding: 60px 5%; }
-  .extra-fees { grid-template-columns: 1fr; }
-  .extra-fee-card { padding: 16px 18px; }
-  .extra-icon { font-size: 1.5rem; }
-  .extra-title { font-size: 0.88rem; }
-  .extra-desc { font-size: 0.8rem; }
-  .pricing-table thead th { padding: 12px 10px; font-size: 0.78rem; }
-  .pricing-table thead .sub-th { font-size: 0.72rem; }
-  .pricing-table tbody td { padding: 12px 10px; font-size: 0.86rem; }
-  .pricing-notes { padding: 18px 16px; }
-  .pricing-notes li { font-size: 0.8rem; }
+  /* WORKFLOW 小手機 */
+  .step-item { gap: 16px; padding: 24px 0; }
+  .step-circle { width: 44px; height: 44px; font-size: 1rem; }
+  .step-title { font-size: 0.95rem; }
+  .step-desc { font-size: 0.87rem; line-height: 1.8; }
+  .step-links { flex-direction: column; }
+  .step-link { width: 100%; text-align: center; box-sizing: border-box; }
 
-  /* Workflow */
-  .step-item { padding: 0 12px; }
-  .step-link { display: block; width: 100%; text-align: center; box-sizing: border-box; }
-
-  /* Footer */
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
@@ -795,7 +832,6 @@ footer {
   </button>
 </nav>
 
-<!-- 手機版抽屜選單 -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mobile-link">品牌精神</a>
   <a href="#features" class="mobile-link">服務核心</a>
@@ -961,7 +997,7 @@ footer {
         </tr>
       </tbody>
     </table>
-  </div>
+  </div></div>
 </section>
 
 <!-- ═══ PRICING ═══ -->
@@ -970,13 +1006,11 @@ footer {
   <h2 class="section-title">收費標準</h2>
   <div class="section-line"></div>
 
-  <!-- 全日托 vs 半日托 Tab -->
   <div class="pricing-tabs reveal">
     <button class="ptab active" data-tab="full">全日托（5小時以上未滿9小時）</button>
     <button class="ptab" data-tab="half">半日托（未滿5小時）</button>
   </div>
 
-  <!-- 全日托表格 -->
   <div class="pricing-table-wrap reveal" id="tab-full">
     <div class="table-scroll">
       <table class="pricing-table">
@@ -1012,7 +1046,6 @@ footer {
     </div>
   </div>
 
-  <!-- 半日托表格 -->
   <div class="pricing-table-wrap reveal" id="tab-half" style="display:none;">
     <div class="table-scroll">
       <table class="pricing-table">
@@ -1048,7 +1081,6 @@ footer {
     </div>
   </div>
 
-  <!-- 額外費用 -->
   <div class="extra-fees reveal reveal-delay-1">
     <div class="extra-fee-card">
       <div class="extra-icon">🍱</div>
@@ -1080,7 +1112,6 @@ footer {
     </div>
   </div>
 
-  <!-- 備註 -->
   <div class="pricing-notes reveal reveal-delay-2">
     <div class="pricing-notes-title">收費說明</div>
     <ul>
@@ -1102,24 +1133,48 @@ footer {
   <div class="section-label">How to Start</div>
   <h2 class="section-title">申請流程<br>三步輕鬆開始</h2>
   <div class="section-line"></div>
+
   <div class="steps-grid">
+
+    <!-- STEP 1 -->
     <div class="step-item reveal">
       <div class="step-circle">1</div>
-      <div class="step-title">提出申請(以下方式擇一即可)</div>
-      <p class="step-desc">1.撥打長照專線 <strong>1966</strong><br>2.使用桃園市線上申請系統<br>3.透過今樂協助申請</p>
-      <a href="https://ltc.tycg.gov.tw/tylcPublic/apply/index" target="_blank" class="step-link">桃園市線上申請 →</a>
-      <a href="reservation.html" class="step-link" style="margin-top:8px;background:var(--gold);">今樂協助申請 →</a>
+      <div class="step-content">
+        <div class="step-title">提出申請（以下方式擇一即可）</div>
+        <p class="step-desc">
+          1. 撥打長照專線 <strong>1966</strong><br>
+          2. 使用桃園市線上申請系統<br>
+          3. 透過今樂協助申請
+        </p>
+        <div class="step-links">
+          <a href="https://ltc.tycg.gov.tw/tylcPublic/apply/index" target="_blank" class="step-link">桃園市線上申請 →</a>
+          <a href="reservation.html" class="step-link gold">今樂協助申請 →</a>
+        </div>
+      </div>
     </div>
+
+    <!-- STEP 2 -->
     <div class="step-item reveal reveal-delay-1">
       <div class="step-circle">2</div>
-      <div class="step-title">照管專員訪視</div>
-      <p class="step-desc">照管中心安排專員到府訪視（約7個工作天），<br>評估個案的身體功能、心智功能、營養狀況等，以判定其長照需要等級(CMS)。</p>
+      <div class="step-content">
+        <div class="step-title">照管專員訪視</div>
+        <p class="step-desc">
+          照管中心安排專員到府訪視（約 7 個工作天），評估個案的身體功能、心智功能、營養狀況等，以判定其長照需要等級（CMS）。
+        </p>
+      </div>
     </div>
+
+    <!-- STEP 3 -->
     <div class="step-item reveal reveal-delay-2">
       <div class="step-circle">3</div>
-      <div class="step-title">啟動服務</div>
-      <p class="step-desc">個案經長照管理中心評估後，由個管師擬定照顧計畫並核定服務項目，<br>與日照中心簽訂服務契約，完成審閱期後正式使用日間照顧服務。</p>
+      <div class="step-content">
+        <div class="step-title">啟動服務</div>
+        <p class="step-desc">
+          個案經長照管理中心評估後，由個管師擬定照顧計畫並核定服務項目，與日照中心簽訂服務契約，完成審閱期後正式使用日間照顧服務。
+        </p>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -1157,7 +1212,7 @@ footer {
         </li>
         <li>
           <span class="loc-icon" style="background:rgba(201,168,76,0.2);">
-            <svg ...信封圖示.../>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#c9a84c"/></svg>
           </span>
           <span>Email：jinlerdaycare@gmail.com</span>
         </li>
