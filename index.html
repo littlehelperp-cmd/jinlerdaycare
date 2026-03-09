@@ -675,12 +675,15 @@ footer {
 /* location mobile → 見下方統一 @media (max-width: 600px) */
 
 /* ─── Email 防爬蟲 ─── */
-.email-protect::before { content: attr(data-user); }
-.email-protect::after  { content: "@" attr(data-domain); }
+.email-protect::before {
+  content: attr(data-user) "@" attr(data-domain);
+}
+.email-protect::after { content: none; }
 .email-protect {
   color: var(--text-body);
   text-decoration: none;
   transition: color 0.3s;
+  white-space: nowrap;
 }
 .email-protect:hover { color: var(--sage-dark); }
 .reveal {
