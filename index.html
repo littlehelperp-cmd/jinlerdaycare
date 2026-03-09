@@ -674,7 +674,15 @@ footer {
 }
 /* location mobile → 見下方統一 @media (max-width: 600px) */
 
-/* ─── SCROLL REVEAL ─── */
+/* ─── Email 防爬蟲 ─── */
+.email-protect::before { content: attr(data-user); }
+.email-protect::after  { content: "@" attr(data-domain); }
+.email-protect {
+  color: var(--text-body);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.email-protect:hover { color: var(--sage-dark); }
 .reveal {
   opacity: 0; transform: translateY(32px);
   transition: opacity 0.7s ease, transform 0.7s ease;
@@ -1209,7 +1217,7 @@ footer {
           <span class="loc-icon" style="background:rgba(201,168,76,0.2);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#c9a84c"/></svg>
           </span>
-          <span>Email：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c66656260697e686d756f6d7e694c6b616d6560226f6361">[email&#160;protected]</a></span>
+          <span>Email：<a href="#contact" class="email-protect" data-user="jinlerdaycare" data-domain="gmail.com" aria-label="jinlerdaycare@gmail.com"></a></span>
         </li>
         <li>
           <span class="loc-icon" style="background:rgba(201,168,76,0.2);">
@@ -1226,7 +1234,7 @@ footer {
       </ul>
       <div class="location-btns">
         <a href="https://line.me/ti/p/@560oaeip" target="_blank" class="loc-btn loc-btn-line">LINE 聯繫</a>
-        <a href="/cdn-cgi/l/email-protection#eb818285878e998f8a92888a998eab8c868a8287c5888486" class="loc-btn loc-btn-map">寄信聯繫</a>
+        <a href="#" class="loc-btn loc-btn-map email-protect-btn" data-user="jinlerdaycare" data-domain="gmail.com">寄信聯繫</a>
         <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
       </div>
     </div>
@@ -1245,7 +1253,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Pricing tabs
 document.querySelectorAll('.ptab').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1300,6 +1308,11 @@ document.querySelectorAll(".mobile-link").forEach(link => {
     mobileMenu.classList.remove("open");
     document.body.style.overflow = "";
   });
+});
+
+// Email 防爬蟲：動態組合 mailto
+document.querySelectorAll('.email-protect, .email-protect-btn').forEach(el => {
+  el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain;
 });
 
 // Scroll reveal
