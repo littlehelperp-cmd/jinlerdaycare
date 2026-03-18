@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>預約參觀｜今樂日照健康有限公司</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- 
+  ⚠️ 部署前必須完成：
+  1. 前往 https://www.google.com/recaptcha/admin 申請 reCAPTCHA v3
+  2. 將下方 YOUR_RECAPTCHA_SITE_KEY 換成你的「Site Key（前端用）」
+  3. 將 GAS 後端的 RECAPTCHA_SECRET_KEY 換成你的「Secret Key（後端用）」
+-->
+<script src="https://www.google.com/recaptcha/api.js?render=6LdNK44sAAAAAMMcpFMvPJJLba3hIwEr61_pXDpx"></script>
 <style>
 :root {
   --sage: #6b8f71;
@@ -18,16 +25,16 @@
   --charcoal: #2a2a2a;
   --mist: #eef2ee;
   --text-body: #4a4a4a;
+  --error: #c0392b;
 
-  /* ── 統一字體比例變數，手機版只需覆寫這幾個 ── */
-  --fs-label:   0.82rem;   /* section 數字標題 */
-  --fs-input:   0.92rem;   /* input / select / textarea */
-  --fs-field-label: 0.84rem; /* 欄位 label */
-  --fs-radio:   0.88rem;   /* radio / time-slot */
-  --fs-small:   0.82rem;   /* 備注、notice list */
-  --fs-body:    0.9rem;    /* 一般段落 */
-  --fs-btn:     1rem;      /* 送出按鈕 */
-  --fs-section-title: 0.95rem; /* 分區標題 */
+  --fs-label:   0.82rem;
+  --fs-input:   0.92rem;
+  --fs-field-label: 0.84rem;
+  --fs-radio:   0.88rem;
+  --fs-small:   0.82rem;
+  --fs-body:    0.9rem;
+  --fs-btn:     1rem;
+  --fs-section-title: 0.95rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,7 +45,6 @@ body {
   color: var(--charcoal);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  /* 手機防止 iOS 自動放大字體 */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -158,6 +164,21 @@ nav {
 }
 .form-group label .required { color: var(--terracotta); margin-left: 2px; }
 
+/* ✅ 資安修復 #2：錯誤狀態視覺提示 */
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: var(--error) !important;
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.1) !important;
+}
+.field-error {
+  font-size: 0.75rem;
+  color: var(--error);
+  margin-top: 2px;
+  display: none;
+}
+.field-error.show { display: block; }
+
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -171,7 +192,6 @@ nav {
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
   cursor: text;
-  /* 防 iOS 自動縮放：font-size >= 16px 時不會自動縮放，但我們用 rem 需確保基礎夠大 */
   -webkit-appearance: none;
   appearance: none;
 }
@@ -223,11 +243,13 @@ nav {
 }
 .time-slot:hover { border-color: var(--sage-light); }
 .time-slot.selected { border-color: var(--sage-dark); background: var(--sage-dark); color: white; }
+.time-slot-error { font-size: 0.75rem; color: var(--error); margin-top: 4px; display: none; }
+.time-slot-error.show { display: block; }
 
-/* Privacy */
+/* Privacy & 同意框 */
 .privacy-row {
   display: flex; align-items: flex-start; gap: 10px;
-  margin-top: 24px;
+  margin-top: 16px;
   font-size: var(--fs-small);
   color: var(--text-body); line-height: 1.7;
 }
@@ -240,7 +262,31 @@ nav {
 }
 .privacy-checkbox.checked { background: var(--sage-dark); border-color: var(--sage-dark); }
 .privacy-checkbox.checked::after { content: '✓'; color: white; font-size: 0.7rem; }
+/* 特種個資框：橘色，視覺上區分一般個資 */
+.privacy-checkbox.sensitive.checked { background: var(--terracotta); border-color: var(--terracotta); }
 .privacy-row a { color: var(--sage-dark); text-decoration: underline; }
+.privacy-row .sensitive-note {
+  font-size: 0.75rem; color: var(--terracotta);
+  display: block; margin-top: 3px;
+}
+.consent-error {
+  font-size: 0.75rem; color: var(--error);
+  margin-top: 6px; display: none;
+}
+.consent-error.show { display: block; }
+
+/* ✅ 資安修復 #3：提交冷卻提示 */
+.rate-limit-notice {
+  font-size: 0.75rem;
+  color: var(--terracotta);
+  margin-top: 8px;
+  text-align: center;
+  display: none;
+}
+.rate-limit-notice.show { display: block; }
+
+/* reCAPTCHA badge 縮小 */
+.grecaptcha-badge { opacity: 0.6; transform: scale(0.85); transform-origin: bottom right; }
 
 /* Submit button */
 .btn-submit {
@@ -254,7 +300,8 @@ nav {
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(61,92,66,0.25);
 }
-.btn-submit:hover { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,113,74,0.35); }
+.btn-submit:hover:not(:disabled) { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,113,74,0.35); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 /* ─── SIDEBAR ─── */
 .sidebar { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 90px; }
@@ -337,88 +384,41 @@ nav {
 footer { background: var(--charcoal); color: white; padding: 28px 6%; text-align: center; }
 footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
 
-/* ═══════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════ */
-
-/* ── 平板 ── */
+/* ═══════ RESPONSIVE ═══════ */
 @media (max-width: 960px) {
-  .form-section {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 56px 6%;
-  }
-  .sidebar {
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+  .form-section { grid-template-columns: 1fr; gap: 28px; padding: 56px 6%; }
+  .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .sidebar .notice-card { grid-column: 1 / -1; }
 }
-
-/* ── 手機 ── */
 @media (max-width: 600px) {
-  /* 覆寫字體比例：統一稍微縮小，消除參差感 */
   :root {
-    --fs-label:           0.72rem;
-    --fs-input:           0.92rem;  /* 維持 ≥16px 的等效大小（body 16px × 0.92 ≈ 14.7px，iOS 不會縮放）*/
-    --fs-field-label:     0.82rem;
-    --fs-radio:           0.84rem;
-    --fs-small:           0.8rem;
-    --fs-body:            0.86rem;
-    --fs-btn:             0.95rem;
-    --fs-section-title:   0.88rem;
+    --fs-label: 0.72rem; --fs-input: 0.92rem; --fs-field-label: 0.82rem;
+    --fs-radio: 0.84rem; --fs-small: 0.8rem; --fs-body: 0.86rem;
+    --fs-btn: 0.95rem; --fs-section-title: 0.88rem;
   }
-
   nav { padding: 0.9rem 5%; }
-  .logo-main { font-size: 0.95rem; }
-  .logo-sub { font-size: 0.6rem; }
+  .logo-main { font-size: 0.95rem; } .logo-sub { font-size: 0.6rem; }
   .cursor, .cursor-ring { display: none; }
   * { cursor: auto; }
   .nav-back span { display: none; }
-
   .page-hero { padding: 96px 5% 48px; }
   .page-hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
   .page-label { font-size: 0.68rem; }
   .page-hero-note { font-size: 0.84rem; }
-
   .form-section { padding: 28px 5%; gap: 20px; }
   .form-card { padding: 22px 16px; border-radius: 14px; }
-
-  /* 所有 row 一律單欄 */
-  .form-row,
-  .form-row.triple { grid-template-columns: 1fr; gap: 12px; }
-
+  .form-row, .form-row.triple { grid-template-columns: 1fr; gap: 12px; }
   .form-section-title { margin-top: 1.6rem; margin-bottom: 1.1rem; }
   .form-section-title span { width: 24px; height: 24px; font-size: 0.68rem; }
-
-  /* input 高度統一 */
-  .form-group input,
-  .form-group select,
-  .form-group textarea { padding: 11px 13px; }
-
+  .form-group input, .form-group select, .form-group textarea { padding: 11px 13px; }
   .time-slots { grid-template-columns: 1fr 1fr; gap: 8px; }
   .time-slot { padding: 10px 6px; }
-  /* 「其他時間」單獨佔一行 */
   .time-slot:last-child { grid-column: 1 / -1; }
-
-  .radio-option { padding: 7px 12px; }
-  .radio-group { gap: 7px; }
-
+  .radio-option { padding: 7px 12px; } .radio-group { gap: 7px; }
   .privacy-row { margin-top: 20px; }
-
   .btn-submit { padding: 14px; margin-top: 20px; }
-
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .notice-card, .info-card, .contact-mini {
-    border-radius: 12px; padding: 18px 16px;
-  }
-
+  .sidebar { display: flex; flex-direction: column; gap: 14px; }
+  .notice-card, .info-card, .contact-mini { border-radius: 12px; padding: 18px 16px; }
   .success-overlay { padding: 28px 20px; }
   .success-icon { font-size: 3rem; }
 }
@@ -429,7 +429,6 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ─── NAV ─── -->
 <nav>
   <a href="index.html" class="logo-wrap">
     <span class="logo-main">今樂日照健康有限公司</span>
@@ -443,7 +442,6 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
   </a>
 </nav>
 
-<!-- ─── HERO STRIP ─── -->
 <div class="page-hero">
   <div class="orb1 hero-orb"></div>
   <div class="orb2 hero-orb"></div>
@@ -460,23 +458,21 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
   </div>
 </div>
 
-<!-- ─── FORM + SIDEBAR ─── -->
 <div class="form-section">
-
-  <!-- FORM -->
   <div class="form-card">
 
-    <!-- 1. 長輩資訊 -->
     <div class="form-section-title"><span>1</span>服務使用者資訊</div>
 
     <div class="form-row triple">
       <div class="form-group">
         <label>長輩姓名 <span class="required">*</span></label>
-        <input type="text" id="elderName" placeholder="請輸入姓名">
+        <input type="text" id="elderName" placeholder="請輸入姓名" maxlength="20">
+        <span class="field-error" id="err-elderName">請輸入長輩姓名</span>
       </div>
       <div class="form-group">
         <label>年齡 <span class="required">*</span></label>
-        <input type="number" id="elderAge" placeholder="例：78">
+        <input type="number" id="elderAge" placeholder="例：78" min="40" max="120">
+        <span class="field-error" id="err-elderAge">請輸入有效年齡（40–120）</span>
       </div>
       <div class="form-group">
         <label>性別 <span class="required">*</span></label>
@@ -485,6 +481,7 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
           <option>男</option>
           <option>女</option>
         </select>
+        <span class="field-error" id="err-gender">請選擇性別</span>
       </div>
     </div>
 
@@ -513,13 +510,13 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
       </div>
     </div>
 
-    <!-- 2. 預約資訊 -->
     <div class="form-section-title"><span>2</span>預約時間</div>
 
     <div class="form-row">
       <div class="form-group">
         <label>預約日期 <span class="required">*</span></label>
         <input type="date" id="visitDate">
+        <span class="field-error" id="err-visitDate">請選擇預約日期（需為工作日）</span>
       </div>
       <div class="form-group">
         <label>總參觀人數 <span class="required">*</span></label>
@@ -540,45 +537,58 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
         <div class="time-slot" onclick="selectTime(this)">14:00 – 15:00</div>
         <div class="time-slot" onclick="selectTime(this)">其他時間<br><small style="font-size:0.75em;opacity:0.8;">（專人電話聯繫）</small></div>
       </div>
+      <span class="time-slot-error" id="err-timeSlot">請選擇預約時段</span>
     </div>
 
-    <!-- 3. 聯絡人資訊 -->
     <div class="form-section-title"><span>3</span>主要聯絡人</div>
 
     <div class="form-row">
       <div class="form-group">
         <label>聯絡人姓名 <span class="required">*</span></label>
-        <input type="text" id="contactName" placeholder="請輸入姓名">
+        <input type="text" id="contactName" placeholder="請輸入姓名" maxlength="20">
+        <span class="field-error" id="err-contactName">請輸入聯絡人姓名</span>
       </div>
       <div class="form-group">
+        <!-- ✅ 資安修復 #4：電話格式驗證 -->
         <label>聯繫電話 <span class="required">*</span></label>
-        <input type="tel" id="contactPhone" placeholder="例：0912-345-678">
+        <input type="tel" id="contactPhone" placeholder="例：0912-345-678" maxlength="20">
+        <span class="field-error" id="err-contactPhone">請輸入有效的台灣電話號碼（如 0912345678 或 03-3670090）</span>
       </div>
     </div>
 
-    <!-- 4. 其他 -->
     <div class="form-section-title"><span>4</span>其他資訊</div>
 
     <div class="form-row single">
       <div class="form-group">
         <label>悄悄話</label>
-        <textarea id="notes" placeholder="如有特殊需求或問題、或想預約其他時間，歡迎在此留言給今樂…"></textarea>
+        <!-- ✅ 資安修復 #5：maxlength 防止過長輸入 -->
+        <textarea id="notes" placeholder="如有特殊需求或問題、或想預約其他時間，歡迎在此留言給今樂…" maxlength="500"></textarea>
       </div>
     </div>
 
-    <!-- Privacy -->
-    <div class="privacy-row">
-      <div class="privacy-checkbox" id="privacyCheck" onclick="togglePrivacy()"></div>
-      <span>我已閱讀並同意今樂日照健康有限公司的<a href="privacy.html" target="_blank">個人資料保護政策</a>，同意本公司蒐集、處理及利用上述個人資料。</span>
+    <!-- 個資同意（兩框：一般個資 + 特種個資各自獨立） -->
+    <div class="privacy-row" style="margin-top:24px;">
+      <div class="privacy-checkbox" id="consentGeneral" onclick="toggleConsent('consentGeneral','general')"></div>
+      <span>我已閱讀並同意今樂日照健康有限公司的<a href="privacy.html" target="_blank">個人資料保護政策</a>，同意本公司蒐集、處理及利用本人填寫之個人資料。</span>
     </div>
 
-    <button class="btn-submit" onclick="submitForm()">送出預約申請</button>
+    <div class="privacy-row">
+      <div class="privacy-checkbox sensitive" id="consentSensitive" onclick="toggleConsent('consentSensitive','sensitive')"></div>
+      <span>
+        我另行同意本公司蒐集健康相關之<strong>特種個人資料</strong>（長照等級 CMS、長照服務使用狀況），用於服務適配評估。
+        <span class="sensitive-note">※ 依個資法第6條，健康資料須單獨同意。若未填寫 CMS 等級，可不勾選。</span>
+      </span>
+    </div>
+
+    <div class="consent-error" id="err-consent">請先勾選同意個人資料保護政策，方可送出預約申請。</div>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitForm()">送出預約申請</button>
+    <!-- ✅ 資安修復 #6：送出頻率限制提示 -->
+    <div class="rate-limit-notice" id="rateLimitNotice">請稍候 60 秒再重新送出，感謝您的耐心。</div>
 
   </div>
 
-  <!-- SIDEBAR -->
   <div class="sidebar">
-
     <div class="notice-card">
       <h3>📋 預約須知</h3>
       <ul class="notice-list">
@@ -618,11 +628,9 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
         jinlerdaycare@gmail.com
       </a>
     </div>
-
   </div>
 </div>
 
-<!-- ─── SUCCESS ─── -->
 <div class="success-overlay" id="successOverlay">
   <div class="success-icon">🌿</div>
   <h2>預約申請已送出！</h2>
@@ -630,13 +638,12 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
   <a href="index.html" class="btn-back-home">返回首頁</a>
 </div>
 
-<!-- ─── FOOTER ─── -->
 <footer>
   <p>© 今樂日照健康有限公司 版權所有｜附設桃園市私立今樂社區長照機構</p>
 </footer>
 
 <script>
-// Cursor
+// ─── Cursor ───
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let rx = 0, ry = 0;
@@ -656,69 +663,177 @@ document.querySelectorAll('a,button,.radio-option,.time-slot,.privacy-checkbox')
   el.addEventListener('mouseleave', () => { cursor.style.transform='scale(1)'; ring.style.transform='scale(1)'; });
 });
 
-// Set min date to today
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('visitDate').min = today;
+// ─── Min date（排除週末）───
+const dateInput = document.getElementById('visitDate');
+const today = new Date();
+today.setHours(0,0,0,0);
+dateInput.min = today.toISOString().split('T')[0];
 
-// Time slot select
+// 排除週末：點選時自動跳到下一個工作日
+dateInput.addEventListener('change', () => {
+  const d = new Date(dateInput.value + 'T00:00:00');
+  const day = d.getDay();
+  if (day === 0) d.setDate(d.getDate() + 1);
+  if (day === 6) d.setDate(d.getDate() + 2);
+  dateInput.value = d.toISOString().split('T')[0];
+});
+
+// ─── Time slot ───
 function selectTime(el) {
   document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
   el.classList.add('selected');
+  document.getElementById('err-timeSlot').classList.remove('show');
 }
 
-// Privacy toggle
-let privacyChecked = false;
-function togglePrivacy() {
-  privacyChecked = !privacyChecked;
-  document.getElementById('privacyCheck').classList.toggle('checked', privacyChecked);
+// ─── 兩框同意邏輯（個資法第6、7條）───
+// general = 必須勾選；sensitive = 若有填 CMS 欄位則必須勾選，否則選填
+const consentState = { general: false, sensitive: false };
+
+function toggleConsent(elemId, key) {
+  consentState[key] = !consentState[key];
+  document.getElementById(elemId).classList.toggle('checked', consentState[key]);
+  document.getElementById('err-consent').classList.remove('show');
 }
 
-// Submit
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxjRebDmR8OIx4Dx4TESDucSoMTDehTct1ve7ckTkLKQk_F1HqF9TPRbTKs9bWOaL3MDg/exec';
+function allConsentsChecked() {
+  if (!consentState.general) return false;
+  // 若有填 CMS 等級，特種個資同意也必須勾選
+  const cmsValue = document.getElementById('ltcLevel').value;
+  const ltcServiceValue = document.getElementById('ltcService').value;
+  const hasSensitiveData = (cmsValue !== '' && cmsValue !== '尚未評估') || ltcServiceValue !== '';
+  if (hasSensitiveData && !consentState.sensitive) return false;
+  return true;
+}
 
+// ─── ✅ 資安修復 #7：Input 消毒（XSS 防護）───
+function sanitize(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+// ─── ✅ 資安修復 #4：電話格式驗證 ───
+function validateTWPhone(phone) {
+  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+  return /^(0[2-9]\d{7,8}|09\d{8})$/.test(cleaned);
+}
+
+// ─── ✅ 資安修復 #6：提交頻率限制（60秒冷卻）───
+let lastSubmitTime = 0;
+const SUBMIT_COOLDOWN_MS = 60000;
+
+// ─── 表單驗證 ───
+function validateForm() {
+  let valid = true;
+
+  // 清除所有錯誤
+  document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('input.error, select.error, textarea.error').forEach(e => e.classList.remove('error'));
+
+  const checks = [
+    { id: 'elderName', errId: 'err-elderName', test: v => v.trim().length >= 2 },
+    { id: 'elderAge', errId: 'err-elderAge', test: v => { const n = parseInt(v); return n >= 40 && n <= 120; } },
+    { id: 'gender', errId: 'err-gender', test: v => v !== '' },
+    { id: 'visitDate', errId: 'err-visitDate', test: v => v !== '' },
+    { id: 'contactName', errId: 'err-contactName', test: v => v.trim().length >= 2 },
+    { id: 'contactPhone', errId: 'err-contactPhone', test: v => validateTWPhone(v) },
+  ];
+
+  checks.forEach(({ id, errId, test }) => {
+    const el = document.getElementById(id);
+    if (!test(el.value)) {
+      el.classList.add('error');
+      document.getElementById(errId).classList.add('show');
+      valid = false;
+    }
+  });
+
+  // 時段
+  if (!document.querySelector('.time-slot.selected')) {
+    document.getElementById('err-timeSlot').classList.add('show');
+    valid = false;
+  }
+
+  return valid;
+}
+
+// ─── Google Apps Script URL ───
+// ⚠️ 注意：此 URL 在純靜態前端無法完全隱藏
+// 防護依賴後端 GAS 驗證 reCAPTCHA token + Referer，請確保 GAS 端已部署驗證邏輯
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyULCYtXrUe0WLT7RHk8H-c7_ETljG2kKTdf6zG34bMZWs3Yb9DmhApI8AI1xcc8wW8ag/exec';
+
+// ─── Submit ───
 function submitForm() {
-  const name = document.getElementById('elderName').value.trim();
-  const date = document.getElementById('visitDate').value;
-  const contact = document.getElementById('contactPhone').value.trim();
-  const timeSelected = document.querySelector('.time-slot.selected');
-
-  if (!name || !date || !contact || !timeSelected) {
-    alert('請填寫必填欄位（長輩姓名、預約日期、時段、聯繫電話）');
-    return;
-  }
-  if (!privacyChecked) {
-    alert('請先同意個人資料保護政策');
+  // 頻率限制
+  const now = Date.now();
+  if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
+    const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+    document.getElementById('rateLimitNotice').textContent = `請稍候 ${remaining} 秒再重新送出，感謝您的耐心。`;
+    document.getElementById('rateLimitNotice').classList.add('show');
     return;
   }
 
-  const btn = document.querySelector('.btn-submit');
+  if (!validateForm()) return;
+
+  if (!allConsentsChecked()) {
+    const cmsValue = document.getElementById('ltcLevel').value;
+    const ltcServiceValue = document.getElementById('ltcService').value;
+    const hasSensitiveData = (cmsValue !== '' && cmsValue !== '尚未評估') || ltcServiceValue !== '';
+    const errEl = document.getElementById('err-consent');
+    if (!consentState.general) {
+      errEl.textContent = '請先勾選同意個人資料保護政策，方可送出預約申請。';
+    } else if (hasSensitiveData && !consentState.sensitive) {
+      errEl.textContent = '您已填寫健康相關資料，依個資法第6條請另行勾選特種個資同意。';
+    }
+    errEl.classList.add('show');
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
   btn.textContent = '送出中…';
   btn.disabled = true;
 
+  // ✅ 資安修復 #7：所有欄位都經過 sanitize 再送出
   const payload = {
-    elderName:    document.getElementById('elderName').value.trim(),
-    elderAge:     document.getElementById('elderAge').value.trim(),
-    gender:       document.getElementById('gender').value,
-    ltcLevel:     document.getElementById('ltcLevel').value,
-    ltcService:   document.getElementById('ltcService').value,
-    visitDate:    document.getElementById('visitDate').value,
-    visitTime:    timeSelected.textContent.trim(),
-    visitCount:   document.getElementById('visitCount').value,
-    contactName:  document.getElementById('contactName').value.trim(),
-    contactPhone: document.getElementById('contactPhone').value.trim(),
-    notes:        document.getElementById('notes').value.trim()
+    elderName:    sanitize(document.getElementById('elderName').value.trim()),
+    elderAge:     sanitize(document.getElementById('elderAge').value.trim()),
+    gender:       sanitize(document.getElementById('gender').value),
+    ltcLevel:     sanitize(document.getElementById('ltcLevel').value),
+    ltcService:   sanitize(document.getElementById('ltcService').value),
+    visitDate:    sanitize(document.getElementById('visitDate').value),
+    visitTime:    sanitize(document.querySelector('.time-slot.selected').textContent.trim()),
+    visitCount:   sanitize(document.getElementById('visitCount').value),
+    contactName:  sanitize(document.getElementById('contactName').value.trim()),
+    contactPhone: sanitize(document.getElementById('contactPhone').value.trim()),
+    notes:        sanitize(document.getElementById('notes').value.trim())
   };
 
-  const params = new URLSearchParams(payload);
-  fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
-  .then(() => {
-    document.getElementById('successOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
-  })
-  .catch(() => {
-    alert('送出失敗，請稍後再試或直接致電 (03) 367-0090');
-    btn.textContent = '送出預約申請';
-    btn.disabled = false;
+  // ✅ reCAPTCHA v3 token
+  grecaptcha.ready(() => {
+    grecaptcha.execute('6LdNK44sAAAAAMMcpFMvPJJLba3hIwEr61_pXDpx', { action: 'reservation_submit' }).then(token => {
+      payload.recaptchaToken = token;
+
+      // ✅ 改用 POST：個資放在 body，不出現在 URL / 瀏覽器紀錄 / server log
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        // GAS 接收 POST 需用 text/plain（application/json 會觸發 CORS preflight，no-cors 下不支援）
+        // GAS 端用 JSON.parse(e.postData.contents) 解析
+        body: JSON.stringify(payload)
+      })
+        .then(() => {
+          lastSubmitTime = Date.now();
+          document.getElementById('successOverlay').classList.add('show');
+          document.body.style.overflow = 'hidden';
+        })
+        .catch(() => {
+          alert('送出失敗，請稍後再試或直接致電 (03) 367-0090');
+          btn.textContent = '送出預約申請';
+          btn.disabled = false;
+        });
+    });
   });
 }
 </script>
