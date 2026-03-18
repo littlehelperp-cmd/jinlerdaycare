@@ -5,13 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>預約參觀｜今樂日照健康有限公司</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-<!-- 
-  ⚠️ 部署前必須完成：
-  1. 前往 https://www.google.com/recaptcha/admin 申請 reCAPTCHA v3
-  2. 將下方 YOUR_RECAPTCHA_SITE_KEY 換成你的「Site Key（前端用）」
-  3. 將 GAS 後端的 RECAPTCHA_SECRET_KEY 換成你的「Secret Key（後端用）」
--->
+
 <script src="https://www.google.com/recaptcha/api.js?render=6LdNK44sAAAAAMMcpFMvPJJLba3hIwEr61_pXDpx"></script>
+
 <style>
 :root {
   --sage: #6b8f71;
@@ -33,7 +29,7 @@
   --fs-radio:   0.88rem;
   --fs-small:   0.82rem;
   --fs-body:    0.9rem;
-  --fs-btn:     1rem;
+  --fs-btn:      1rem;
   --fs-section-title: 0.95rem;
 }
 
@@ -45,11 +41,9 @@ body {
   color: var(--charcoal);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
 }
 
 /* ─── CURSOR ─── */
-* { cursor: none; }
 .cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; mix-blend-mode: multiply; }
 .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.18s ease; opacity: 0.6; }
 
@@ -66,362 +60,60 @@ nav {
 .logo-wrap { display: flex; flex-direction: column; text-decoration: none; }
 .logo-main { font-family: 'Noto Serif TC', serif; font-size: 1.05rem; font-weight: 700; color: var(--sage-dark); letter-spacing: 0.05em; }
 .logo-sub { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.08em; margin-top: 2px; font-weight: 500; }
-.nav-back {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--text-body); text-decoration: none;
-  transition: color 0.3s;
-}
+.nav-back { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-body); text-decoration: none; transition: color 0.3s; }
 .nav-back:hover { color: var(--sage-dark); }
-.nav-back svg { transition: transform 0.3s; }
-.nav-back:hover svg { transform: translateX(-4px); }
 
-/* ─── HERO STRIP ─── */
-.page-hero {
-  padding: 130px 6% 70px;
-  background: linear-gradient(135deg, #e8ede9 0%, #f5f0e8 50%, #ede8e0 100%);
-  position: relative; overflow: hidden;
-}
-.hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
-.orb1 { width: 500px; height: 500px; background: var(--sage-light); top: -200px; right: -100px; animation: drift1 12s ease-in-out infinite; }
-.orb2 { width: 300px; height: 300px; background: var(--gold-light); bottom: -100px; left: 0; animation: drift2 15s ease-in-out infinite; }
-@keyframes drift1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-20px,20px);} }
-@keyframes drift2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(15px,-15px);} }
-
+/* ─── HERO ─── */
+.page-hero { padding: 130px 6% 70px; background: linear-gradient(135deg, #e8ede9 0%, #f5f0e8 50%, #ede8e0 100%); position: relative; overflow: hidden; }
 .page-hero-content { position: relative; z-index: 2; max-width: 640px; }
-.page-label {
-  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); font-weight: 600; margin-bottom: 1rem;
-  animation: fadeUp 0.6s ease both;
-}
-.page-hero h1 {
-  font-family: 'Playfair Display', 'Noto Serif TC', serif;
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  line-height: 1.2; color: var(--charcoal);
-  animation: fadeUp 0.6s 0.1s ease both;
-}
+.page-label { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold); font-weight: 600; margin-bottom: 1rem; }
+.page-hero h1 { font-family: 'Playfair Display', 'Noto Serif TC', serif; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.2; }
 .page-hero h1 em { font-style: italic; color: var(--sage-dark); }
-.page-hero-note {
-  margin-top: 1.2rem;
-  font-size: var(--fs-body);
-  line-height: 1.85;
-  color: var(--text-body); font-family: 'Noto Serif TC', serif; font-weight: 300;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-.page-hero-note ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-.page-hero-note li { display: flex; align-items: flex-start; gap: 10px; }
-.page-hero-note li::before { content: '✦'; color: var(--gold); flex-shrink: 0; font-size: 0.7rem; margin-top: 5px; }
 
-@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
-/* ─── FORM SECTION ─── */
-.form-section {
-  padding: 72px 6%;
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 56px;
-  align-items: start;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* ─── FORM CARD ─── */
-.form-card {
-  background: white;
-  border-radius: 20px;
-  padding: 44px;
-  box-shadow: 0 4px 40px rgba(0,0,0,0.06);
-}
-
-.form-section-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: var(--fs-section-title);
-  font-weight: 700;
-  color: var(--sage-dark);
-  letter-spacing: 0.08em;
-  margin-bottom: 1.4rem; margin-top: 2rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--mist);
-  display: flex; align-items: center; gap: 10px;
-}
-.form-section-title:first-of-type { margin-top: 0; }
-.form-section-title span {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--sage-dark); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
-}
+/* ─── FORM ─── */
+.form-section { padding: 72px 6%; display: grid; grid-template-columns: 1fr 360px; gap: 56px; max-width: 1200px; margin: 0 auto; }
+.form-card { background: white; border-radius: 20px; padding: 44px; box-shadow: 0 4px 40px rgba(0,0,0,0.06); }
+.form-section-title { font-family: 'Noto Serif TC', serif; font-size: var(--fs-section-title); font-weight: 700; color: var(--sage-dark); margin-bottom: 1.4rem; margin-top: 2rem; border-bottom: 1px solid var(--mist); display: flex; align-items: center; gap: 10px; }
+.form-section-title span { width: 26px; height: 26px; border-radius: 50%; background: var(--sage-dark); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-.form-row.single { grid-template-columns: 1fr; }
 .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
-
 .form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label {
-  font-size: var(--fs-field-label);
-  font-weight: 600; color: var(--charcoal);
-  letter-spacing: 0.04em;
-}
-.form-group label .required { color: var(--terracotta); margin-left: 2px; }
+.form-group label { font-size: var(--fs-field-label); font-weight: 600; }
+.required { color: var(--terracotta); }
 
-/* ✅ 資安修復 #2：錯誤狀態視覺提示 */
-.form-group input.error,
-.form-group select.error,
-.form-group textarea.error {
-  border-color: var(--error) !important;
-  box-shadow: 0 0 0 3px rgba(192,57,43,0.1) !important;
+.form-group input, .form-group select, .form-group textarea {
+  padding: 11px 14px; border: 1.5px solid #e8e5e0; border-radius: 8px; font-size: var(--fs-input); outline: none; background: var(--cream);
 }
-.field-error {
-  font-size: 0.75rem;
-  color: var(--error);
-  margin-top: 2px;
-  display: none;
-}
+.form-group input.error { border-color: var(--error); }
+.field-error { font-size: 0.75rem; color: var(--error); display: none; }
 .field-error.show { display: block; }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 11px 14px;
-  border: 1.5px solid #e8e5e0;
-  border-radius: 8px;
-  font-size: var(--fs-input);
-  font-family: 'Noto Sans TC', sans-serif;
-  color: var(--charcoal);
-  background: var(--cream);
-  transition: border-color 0.2s, box-shadow 0.2s;
-  outline: none;
-  cursor: text;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a4a4a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-  cursor: pointer;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--sage);
-  box-shadow: 0 0 0 3px rgba(107,143,113,0.12);
-  background: white;
-}
-.form-group textarea { resize: vertical; min-height: 100px; }
-
-/* Radio & Checkbox */
-.radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.radio-option, .checkbox-option {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 14px;
-  border: 1.5px solid #e8e5e0;
-  border-radius: 50px;
-  font-size: var(--fs-radio);
-  color: var(--text-body);
-  transition: all 0.2s;
-  cursor: pointer;
-  line-height: 1.4;
-}
-.radio-option input, .checkbox-option input { display: none; }
-.radio-option.selected, .checkbox-option.selected {
-  border-color: var(--sage-dark);
-  background: var(--sage-dark);
-  color: white;
-}
-
-/* Time slots */
 .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.time-slot {
-  padding: 10px 8px; text-align: center;
-  border: 1.5px solid #e8e5e0; border-radius: 8px;
-  font-size: var(--fs-radio);
-  color: var(--text-body);
-  transition: all 0.2s; cursor: pointer;
-  line-height: 1.5;
-}
-.time-slot:hover { border-color: var(--sage-light); }
+.time-slot { padding: 10px 8px; text-align: center; border: 1.5px solid #e8e5e0; border-radius: 8px; font-size: var(--fs-radio); cursor: pointer; transition: all 0.2s; }
 .time-slot.selected { border-color: var(--sage-dark); background: var(--sage-dark); color: white; }
-.time-slot-error { font-size: 0.75rem; color: var(--error); margin-top: 4px; display: none; }
-.time-slot-error.show { display: block; }
 
-/* Privacy & 同意框 */
-.privacy-row {
-  display: flex; align-items: flex-start; gap: 10px;
-  margin-top: 16px;
-  font-size: var(--fs-small);
-  color: var(--text-body); line-height: 1.7;
-}
-.privacy-checkbox {
-  width: 18px; height: 18px; min-width: 18px; flex-shrink: 0;
-  border: 1.5px solid #ccc; border-radius: 4px;
-  background: white; margin-top: 2px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.2s;
-}
+/* ─── PRIVACY ─── */
+.privacy-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; font-size: var(--fs-small); line-height: 1.7; }
+.privacy-checkbox { width: 18px; height: 18px; border: 1.5px solid #ccc; border-radius: 4px; cursor: pointer; flex-shrink: 0; margin-top: 2px; position: relative; }
 .privacy-checkbox.checked { background: var(--sage-dark); border-color: var(--sage-dark); }
-.privacy-checkbox.checked::after { content: '✓'; color: white; font-size: 0.7rem; }
-/* 特種個資框：橘色，視覺上區分一般個資 */
+.privacy-checkbox.checked::after { content: '✓'; color: white; position: absolute; left: 3px; top: -2px; font-size: 12px; }
 .privacy-checkbox.sensitive.checked { background: var(--terracotta); border-color: var(--terracotta); }
-.privacy-row a { color: var(--sage-dark); text-decoration: underline; }
-.privacy-row .sensitive-note {
-  font-size: 0.75rem; color: var(--terracotta);
-  display: block; margin-top: 3px;
-}
-.consent-error {
-  font-size: 0.75rem; color: var(--error);
-  margin-top: 6px; display: none;
-}
-.consent-error.show { display: block; }
 
-/* ✅ 資安修復 #3：提交冷卻提示 */
-.rate-limit-notice {
-  font-size: 0.75rem;
-  color: var(--terracotta);
-  margin-top: 8px;
-  text-align: center;
-  display: none;
-}
-.rate-limit-notice.show { display: block; }
+.btn-submit { width: 100%; padding: 15px; background: var(--sage-dark); color: white; border: none; border-radius: 8px; font-size: var(--fs-btn); font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 24px; }
+.btn-submit:hover:not(:disabled) { background: var(--terracotta); transform: translateY(-2px); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* reCAPTCHA badge 縮小 */
-.grecaptcha-badge { opacity: 0.6; transform: scale(0.85); transform-origin: bottom right; }
-
-/* Submit button */
-.btn-submit {
-  width: 100%; padding: 15px;
-  background: var(--sage-dark); color: white;
-  border: none; border-radius: 8px;
-  font-size: var(--fs-btn);
-  font-weight: 700; letter-spacing: 0.1em;
-  font-family: 'Noto Sans TC', sans-serif;
-  transition: all 0.3s; margin-top: 24px;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(61,92,66,0.25);
-}
-.btn-submit:hover:not(:disabled) { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,113,74,0.35); }
-.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+/* ─── SUCCESS ─── */
+.success-overlay { display: none; position: fixed; inset: 0; background: rgba(250,247,242,0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.success-overlay.show { display: flex; }
 
 /* ─── SIDEBAR ─── */
-.sidebar { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 90px; }
+.sidebar { display: flex; flex-direction: column; gap: 18px; }
+.notice-card { background: var(--sage-dark); border-radius: 16px; padding: 24px; color: white; }
+.info-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
 
-.info-card {
-  background: white; border-radius: 16px; padding: 24px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.05);
-}
-.info-card h3 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: var(--fs-section-title);
-  font-weight: 700;
-  color: var(--charcoal); margin-bottom: 1rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--mist);
-}
-.info-item { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
-.info-item:last-child { margin-bottom: 0; }
-.info-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.info-text { font-size: var(--fs-small); line-height: 1.65; color: var(--text-body); }
-.info-text strong { display: block; color: var(--charcoal); margin-bottom: 2px; font-size: var(--fs-body); }
-
-.notice-card {
-  background: linear-gradient(135deg, var(--sage-dark), #2d4a32);
-  border-radius: 16px; padding: 24px; color: white;
-}
-.notice-card h3 { font-size: var(--fs-section-title); font-weight: 700; margin-bottom: 1rem; color: var(--gold-light); }
-.notice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.notice-list li {
-  font-size: var(--fs-small);
-  line-height: 1.65; color: rgba(255,255,255,0.82);
-  display: flex; gap: 8px;
-}
-.notice-list li::before { content: '✦'; color: var(--gold); flex-shrink: 0; font-size: 0.65rem; margin-top: 4px; }
-
-.contact-mini { background: var(--mist); border-radius: 16px; padding: 22px; }
-.contact-mini h3 { font-size: var(--fs-body); font-weight: 700; color: var(--charcoal); margin-bottom: 12px; }
-.contact-mini a {
-  display: flex; align-items: center; gap: 10px;
-  font-size: var(--fs-small);
-  color: var(--text-body); text-decoration: none;
-  padding: 8px 0; transition: color 0.2s;
-  border-bottom: 1px solid rgba(107,143,113,0.1);
-}
-.contact-mini a:last-child { border-bottom: none; }
-.contact-mini a:hover { color: var(--sage-dark); }
-
-/* ─── SUCCESS STATE ─── */
-.success-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(250,247,242,0.97);
-  backdrop-filter: blur(20px);
-  z-index: 200;
-  flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 40px;
-}
-.success-overlay.show { display: flex; }
-.success-icon { font-size: 4rem; margin-bottom: 1.5rem; animation: bounceIn 0.6s ease; }
-@keyframes bounceIn { 0%{transform:scale(0);} 60%{transform:scale(1.2);} 100%{transform:scale(1);} }
-.success-overlay h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 5vw, 2.4rem);
-  color: var(--sage-dark); margin-bottom: 1rem;
-}
-.success-overlay p {
-  font-size: var(--fs-body);
-  color: var(--text-body); line-height: 1.85; max-width: 480px; margin-bottom: 2rem;
-  font-family: 'Noto Serif TC', serif; font-weight: 300;
-}
-.btn-back-home {
-  padding: 13px 32px; background: var(--gold); color: white;
-  border-radius: 4px; text-decoration: none;
-  font-weight: 700; font-size: var(--fs-body);
-  letter-spacing: 0.1em; transition: all 0.3s;
-}
-.btn-back-home:hover { background: var(--terracotta); transform: translateY(-2px); }
-
-/* ─── FOOTER ─── */
-footer { background: var(--charcoal); color: white; padding: 28px 6%; text-align: center; }
-footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
-
-/* ═══════ RESPONSIVE ═══════ */
-@media (max-width: 960px) {
-  .form-section { grid-template-columns: 1fr; gap: 28px; padding: 56px 6%; }
-  .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .sidebar .notice-card { grid-column: 1 / -1; }
-}
-@media (max-width: 600px) {
-  :root {
-    --fs-label: 0.72rem; --fs-input: 0.92rem; --fs-field-label: 0.82rem;
-    --fs-radio: 0.84rem; --fs-small: 0.8rem; --fs-body: 0.86rem;
-    --fs-btn: 0.95rem; --fs-section-title: 0.88rem;
-  }
-  nav { padding: 0.9rem 5%; }
-  .logo-main { font-size: 0.95rem; } .logo-sub { font-size: 0.6rem; }
-  .cursor, .cursor-ring { display: none; }
-  * { cursor: auto; }
-  .nav-back span { display: none; }
-  .page-hero { padding: 96px 5% 48px; }
-  .page-hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-  .page-label { font-size: 0.68rem; }
-  .page-hero-note { font-size: 0.84rem; }
-  .form-section { padding: 28px 5%; gap: 20px; }
-  .form-card { padding: 22px 16px; border-radius: 14px; }
-  .form-row, .form-row.triple { grid-template-columns: 1fr; gap: 12px; }
-  .form-section-title { margin-top: 1.6rem; margin-bottom: 1.1rem; }
-  .form-section-title span { width: 24px; height: 24px; font-size: 0.68rem; }
-  .form-group input, .form-group select, .form-group textarea { padding: 11px 13px; }
-  .time-slots { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .time-slot { padding: 10px 6px; }
-  .time-slot:last-child { grid-column: 1 / -1; }
-  .radio-option { padding: 7px 12px; } .radio-group { gap: 7px; }
-  .privacy-row { margin-top: 20px; }
-  .btn-submit { padding: 14px; margin-top: 20px; }
-  .sidebar { display: flex; flex-direction: column; gap: 14px; }
-  .notice-card, .info-card, .contact-mini { border-radius: 12px; padding: 18px 16px; }
-  .success-overlay { padding: 28px 20px; }
-  .success-icon { font-size: 3rem; }
-}
+@media (max-width: 960px) { .form-section { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -434,54 +126,37 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
     <span class="logo-main">今樂日照健康有限公司</span>
     <span class="logo-sub">附設桃園市私立今樂社區長照機構</span>
   </a>
-  <a href="index.html" class="nav-back">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M19 12H5M12 5l-7 7 7 7"/>
-    </svg>
-    <span>返回首頁</span>
-  </a>
+  <a href="index.html" class="nav-back"><span>返回首頁</span></a>
 </nav>
 
 <div class="page-hero">
-  <div class="orb1 hero-orb"></div>
-  <div class="orb2 hero-orb"></div>
   <div class="page-hero-content">
     <div class="page-label">Reservation</div>
     <h1>預約<br><em>參觀諮詢 / 協助申請</em></h1>
-    <div class="page-hero-note">
-      <ul>
-        <li>參觀與協助申請長照採預約制，請於 2 個工作天前完成預約。</li>
-        <li>開放時間為週一至週五（例假日除外）。</li>
-        <li>填寫完畢後，我們將於 1 個工作天內與您確認。</li>
-      </ul>
-    </div>
   </div>
 </div>
 
 <div class="form-section">
   <div class="form-card">
-
     <div class="form-section-title"><span>1</span>服務使用者資訊</div>
-
     <div class="form-row triple">
       <div class="form-group">
         <label>長輩姓名 <span class="required">*</span></label>
-        <input type="text" id="elderName" placeholder="請輸入姓名" maxlength="20">
-        <span class="field-error" id="err-elderName">請輸入長輩姓名</span>
+        <input type="text" id="elderName" placeholder="姓名">
+        <span class="field-error" id="err-elderName">請輸入姓名</span>
       </div>
       <div class="form-group">
         <label>年齡 <span class="required">*</span></label>
-        <input type="number" id="elderAge" placeholder="例：78" min="40" max="120">
-        <span class="field-error" id="err-elderAge">請輸入有效年齡（40–120）</span>
+        <input type="number" id="elderAge" placeholder="例：78">
+        <span class="field-error" id="err-elderAge">請輸入有效年齡</span>
       </div>
       <div class="form-group">
         <label>性別 <span class="required">*</span></label>
         <select id="gender">
-          <option value="">— 請選擇 —</option>
+          <option value="">選擇</option>
           <option>男</option>
           <option>女</option>
         </select>
-        <span class="field-error" id="err-gender">請選擇性別</span>
       </div>
     </div>
 
@@ -489,350 +164,154 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
       <div class="form-group">
         <label>CMS 等級</label>
         <select id="ltcLevel">
-          <option value="">— 請選擇 —</option>
-          <option>尚未評估</option>
-          <option>第 2 級</option>
-          <option>第 3 級</option>
-          <option>第 4 級</option>
-          <option>第 5 級</option>
-          <option>第 6 級</option>
-          <option>第 7 級</option>
-          <option>第 8 級</option>
+          <option value="">尚未評估</option>
+          <option>第 2 級</option><option>第 3 級</option><option>第 4 級</option>
+          <option>第 5 級</option><option>第 6 級</option><option>第 7 級</option><option>第 8 級</option>
         </select>
       </div>
       <div class="form-group">
         <label>是否有使用長照服務</label>
         <select id="ltcService">
           <option value="">— 請選擇 —</option>
-          <option>是</option>
-          <option>否</option>
+          <option>是</option><option>否</option>
         </select>
       </div>
     </div>
 
     <div class="form-section-title"><span>2</span>預約時間</div>
-
     <div class="form-row">
       <div class="form-group">
         <label>預約日期 <span class="required">*</span></label>
         <input type="date" id="visitDate">
-        <span class="field-error" id="err-visitDate">請選擇預約日期（需為工作日）</span>
       </div>
       <div class="form-group">
         <label>總參觀人數 <span class="required">*</span></label>
         <select id="visitCount">
-          <option value="">— 請選擇（上限4人）—</option>
-          <option>1 人</option>
-          <option>2 人</option>
-          <option>3 人</option>
-          <option>4 人</option>
+          <option value="">請選擇</option>
+          <option>1 人</option><option>2 人</option><option>3 人</option><option>4 人</option>
         </select>
       </div>
     </div>
 
-    <div class="form-group" style="margin-bottom:14px;">
+    <div class="form-group">
       <label>預約時段 <span class="required">*</span></label>
       <div class="time-slots">
         <div class="time-slot" onclick="selectTime(this)">10:00 – 11:00</div>
         <div class="time-slot" onclick="selectTime(this)">14:00 – 15:00</div>
-        <div class="time-slot" onclick="selectTime(this)">其他時間<br><small style="font-size:0.75em;opacity:0.8;">（專人電話聯繫）</small></div>
+        <div class="time-slot" onclick="selectTime(this)">其他時間</div>
       </div>
-      <span class="time-slot-error" id="err-timeSlot">請選擇預約時段</span>
     </div>
 
     <div class="form-section-title"><span>3</span>主要聯絡人</div>
-
     <div class="form-row">
       <div class="form-group">
         <label>聯絡人姓名 <span class="required">*</span></label>
-        <input type="text" id="contactName" placeholder="請輸入姓名" maxlength="20">
-        <span class="field-error" id="err-contactName">請輸入聯絡人姓名</span>
+        <input type="text" id="contactName" placeholder="姓名">
       </div>
       <div class="form-group">
-        <!-- ✅ 資安修復 #4：電話格式驗證 -->
         <label>聯繫電話 <span class="required">*</span></label>
-        <input type="tel" id="contactPhone" placeholder="例：0912-345-678" maxlength="20">
-        <span class="field-error" id="err-contactPhone">請輸入有效的台灣電話號碼（如 0912345678 或 03-3670090）</span>
+        <input type="tel" id="contactPhone" placeholder="0912345678">
       </div>
     </div>
 
     <div class="form-section-title"><span>4</span>其他資訊</div>
-
-    <div class="form-row single">
-      <div class="form-group">
-        <label>悄悄話</label>
-        <!-- ✅ 資安修復 #5：maxlength 防止過長輸入 -->
-        <textarea id="notes" placeholder="如有特殊需求或問題、或想預約其他時間，歡迎在此留言給今樂…" maxlength="500"></textarea>
-      </div>
-    </div>
-
-    <!-- 個資同意（兩框：一般個資 + 特種個資各自獨立） -->
-    <div class="privacy-row" style="margin-top:24px;">
-      <div class="privacy-checkbox" id="consentGeneral" onclick="toggleConsent('consentGeneral','general')"></div>
-      <span>我已閱讀並同意今樂日照健康有限公司的<a href="privacy.html" target="_blank">個人資料保護政策</a>，同意本公司蒐集、處理及利用本人填寫之個人資料。</span>
+    <div class="form-group">
+      <label>悄悄話</label>
+      <textarea id="notes" placeholder="其他需求..."></textarea>
     </div>
 
     <div class="privacy-row">
+      <div class="privacy-checkbox" id="consentGeneral" onclick="toggleConsent('consentGeneral','general')"></div>
+      <span>我已閱讀並同意<a href="privacy.html">個資政策</a></span>
+    </div>
+    <div class="privacy-row">
       <div class="privacy-checkbox sensitive" id="consentSensitive" onclick="toggleConsent('consentSensitive','sensitive')"></div>
-      <span>
-        我另行同意本公司蒐集健康相關之<strong>特種個人資料</strong>（長照等級 CMS、長照服務使用狀況），用於服務適配評估。
-        <span class="sensitive-note">※ 依個資法第6條，健康資料須單獨同意。若未填寫 CMS 等級，可不勾選。</span>
-      </span>
+      <span>同意蒐集健康特種個資</span>
     </div>
 
-    <div class="consent-error" id="err-consent">請先勾選同意個人資料保護政策，方可送出預約申請。</div>
-
     <button class="btn-submit" id="submitBtn" onclick="submitForm()">送出預約申請</button>
-    <!-- ✅ 資安修復 #6：送出頻率限制提示 -->
-    <div class="rate-limit-notice" id="rateLimitNotice">請稍候 60 秒再重新送出，感謝您的耐心。</div>
-
+    <div id="rateLimitNotice" style="display:none; color:orange; font-size:12px; margin-top:10px;">請稍候再送出</div>
   </div>
 
   <div class="sidebar">
-    <div class="notice-card">
-      <h3>📋 預約須知</h3>
-      <ul class="notice-list">
-        <li>請於參觀日 2 個工作天前完成預約</li>
-        <li>開放時間：週一至週五，例假日除外</li>
-        <li>每次參觀上限 4 人</li>
-        <li>填表後 1 個工作天內將電話確認</li>
-        <li>如需更改或取消，請提前告知</li>
-      </ul>
-    </div>
-
-    <div class="info-card">
-      <h3>📍 中心位置</h3>
-      <div class="info-item">
-        <div class="info-icon" style="background:rgba(234,67,53,0.1);">
-          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/></svg>
-        </div>
-        <div class="info-text">
-          <strong>今樂日照中心</strong>
-          桃園市八德區介壽路二段252巷21號1樓
-        </div>
-      </div>
-    </div>
-
-    <div class="contact-mini">
-      <h3>有問題？直接聯繫我們</h3>
-      <a href="tel:033670090">
-        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#C9A84C"/></svg>
-        (03) 367-0090
-      </a>
-      <a href="https://line.me/ti/p/@560oaeip" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#06C755"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-        LINE @560oaeip
-      </a>
-      <a href="mailto:jinlerdaycare@gmail.com">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#C9A84C"/></svg>
-        jinlerdaycare@gmail.com
-      </a>
-    </div>
+    <div class="notice-card"><h3>📋 預約須知</h3><p>請於 2 個工作天前預約。</p></div>
+    <div class="info-card"><h3>📍 中心位置</h3><p>桃園市八德區介壽路二段252巷21號1樓</p></div>
   </div>
 </div>
 
 <div class="success-overlay" id="successOverlay">
-  <div class="success-icon">🌿</div>
-  <h2>預約申請已送出！</h2>
-  <p>感謝您的預約，我們將於 1 個工作天內以電話與您確認參觀時間。<br>期待與您和長輩見面！</p>
-  <a href="index.html" class="btn-back-home">返回首頁</a>
+  <h2>🌿 預約已送出！</h2>
+  <p>我們將於 1 個工作天內聯繫您。</p>
+  <a href="index.html" style="color:var(--gold); text-decoration:none; font-weight:bold;">返回首頁</a>
 </div>
 
-<footer>
-  <p>© 今樂日照健康有限公司 版權所有｜附設桃園市私立今樂社區長照機構</p>
-</footer>
-
 <script>
-// ─── Cursor ───
+// ─── 基礎 UI 邏輯 ───
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
-let rx = 0, ry = 0;
 document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX - 5 + 'px';
-  cursor.style.top = e.clientY - 5 + 'px';
-  rx += (e.clientX - 18 - rx) * 0.12;
-  ry += (e.clientY - 18 - ry) * 0.12;
-});
-function animRing() {
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-document.querySelectorAll('a,button,.radio-option,.time-slot,.privacy-checkbox').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.transform='scale(2.5)'; ring.style.transform='scale(1.6)'; });
-  el.addEventListener('mouseleave', () => { cursor.style.transform='scale(1)'; ring.style.transform='scale(1)'; });
+  cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX - 13 + 'px'; ring.style.top = e.clientY - 13 + 'px';
 });
 
-// ─── Min date（排除週末）───
-const dateInput = document.getElementById('visitDate');
-const today = new Date();
-today.setHours(0,0,0,0);
-dateInput.min = today.toISOString().split('T')[0];
-
-// 排除週末：點選時自動跳到下一個工作日
-dateInput.addEventListener('change', () => {
-  const d = new Date(dateInput.value + 'T00:00:00');
-  const day = d.getDay();
-  if (day === 0) d.setDate(d.getDate() + 1);
-  if (day === 6) d.setDate(d.getDate() + 2);
-  dateInput.value = d.toISOString().split('T')[0];
-});
-
-// ─── Time slot ───
 function selectTime(el) {
   document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
   el.classList.add('selected');
-  document.getElementById('err-timeSlot').classList.remove('show');
 }
 
-// ─── 兩框同意邏輯（個資法第6、7條）───
-// general = 必須勾選；sensitive = 若有填 CMS 欄位則必須勾選，否則選填
 const consentState = { general: false, sensitive: false };
-
-function toggleConsent(elemId, key) {
+function toggleConsent(id, key) {
   consentState[key] = !consentState[key];
-  document.getElementById(elemId).classList.toggle('checked', consentState[key]);
-  document.getElementById('err-consent').classList.remove('show');
+  document.getElementById(id).classList.toggle('checked');
 }
 
-function allConsentsChecked() {
-  if (!consentState.general) return false;
-  // 若有填 CMS 等級，特種個資同意也必須勾選
-  const cmsValue = document.getElementById('ltcLevel').value;
-  const ltcServiceValue = document.getElementById('ltcService').value;
-  const hasSensitiveData = (cmsValue !== '' && cmsValue !== '尚未評估') || ltcServiceValue !== '';
-  if (hasSensitiveData && !consentState.sensitive) return false;
-  return true;
-}
+// ─── 送出邏輯 ───
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_LuHif2F1NP_wHZ0ULM63nSKf_GKGydOqudnZyU1BECkz9VZr-6br5Tsf7T0Bx02xyw/exec'; // ⚠️ 請更換為部署後的 URL
 
-// ─── ✅ 資安修復 #7：Input 消毒（XSS 防護）───
-function sanitize(str) {
-  const div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
-}
-
-// ─── ✅ 資安修復 #4：電話格式驗證 ───
-function validateTWPhone(phone) {
-  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
-  return /^(0[2-9]\d{7,8}|09\d{8})$/.test(cleaned);
-}
-
-// ─── ✅ 資安修復 #6：提交頻率限制（60秒冷卻）───
-let lastSubmitTime = 0;
-const SUBMIT_COOLDOWN_MS = 60000;
-
-// ─── 表單驗證 ───
-function validateForm() {
-  let valid = true;
-
-  // 清除所有錯誤
-  document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
-  document.querySelectorAll('input.error, select.error, textarea.error').forEach(e => e.classList.remove('error'));
-
-  const checks = [
-    { id: 'elderName', errId: 'err-elderName', test: v => v.trim().length >= 2 },
-    { id: 'elderAge', errId: 'err-elderAge', test: v => { const n = parseInt(v); return n >= 40 && n <= 120; } },
-    { id: 'gender', errId: 'err-gender', test: v => v !== '' },
-    { id: 'visitDate', errId: 'err-visitDate', test: v => v !== '' },
-    { id: 'contactName', errId: 'err-contactName', test: v => v.trim().length >= 2 },
-    { id: 'contactPhone', errId: 'err-contactPhone', test: v => validateTWPhone(v) },
-  ];
-
-  checks.forEach(({ id, errId, test }) => {
-    const el = document.getElementById(id);
-    if (!test(el.value)) {
-      el.classList.add('error');
-      document.getElementById(errId).classList.add('show');
-      valid = false;
-    }
-  });
-
-  // 時段
-  if (!document.querySelector('.time-slot.selected')) {
-    document.getElementById('err-timeSlot').classList.add('show');
-    valid = false;
-  }
-
-  return valid;
-}
-
-// ─── Google Apps Script URL ───
-// ⚠️ 注意：此 URL 在純靜態前端無法完全隱藏
-// 防護依賴後端 GAS 驗證 reCAPTCHA token + Referer，請確保 GAS 端已部署驗證邏輯
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_LuHif2F1NP_wHZ0ULM63nSKf_GKGydOqudnZyU1BECkz9VZr-6br5Tsf7T0Bx02xyw/exec';
-
-// ─── Submit ───
 function submitForm() {
-  // 頻率限制
-  const now = Date.now();
-  if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
-    const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
-    document.getElementById('rateLimitNotice').textContent = `請稍候 ${remaining} 秒再重新送出，感謝您的耐心。`;
-    document.getElementById('rateLimitNotice').classList.add('show');
-    return;
-  }
-
-  if (!validateForm()) return;
-
-  if (!allConsentsChecked()) {
-    const cmsValue = document.getElementById('ltcLevel').value;
-    const ltcServiceValue = document.getElementById('ltcService').value;
-    const hasSensitiveData = (cmsValue !== '' && cmsValue !== '尚未評估') || ltcServiceValue !== '';
-    const errEl = document.getElementById('err-consent');
-    if (!consentState.general) {
-      errEl.textContent = '請先勾選同意個人資料保護政策，方可送出預約申請。';
-    } else if (hasSensitiveData && !consentState.sensitive) {
-      errEl.textContent = '您已填寫健康相關資料，依個資法第6條請另行勾選特種個資同意。';
-    }
-    errEl.classList.add('show');
-    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-
   const btn = document.getElementById('submitBtn');
-  btn.textContent = '送出中…';
+  
+  // 1. 簡易檢查
+  if (!consentState.general) { alert("請勾選同意政策"); return; }
+  if (!document.querySelector('.time-slot.selected')) { alert("請選擇時段"); return; }
+
   btn.disabled = true;
+  btn.textContent = '提交中...';
 
-  // ✅ 資安修復 #7：所有欄位都經過 sanitize 再送出
-  const payload = {
-    elderName:    sanitize(document.getElementById('elderName').value.trim()),
-    elderAge:     sanitize(document.getElementById('elderAge').value.trim()),
-    gender:       sanitize(document.getElementById('gender').value),
-    ltcLevel:     sanitize(document.getElementById('ltcLevel').value),
-    ltcService:   sanitize(document.getElementById('ltcService').value),
-    visitDate:    sanitize(document.getElementById('visitDate').value),
-    visitTime:    sanitize(document.querySelector('.time-slot.selected').textContent.trim()),
-    visitCount:   sanitize(document.getElementById('visitCount').value),
-    contactName:  sanitize(document.getElementById('contactName').value.trim()),
-    contactPhone: sanitize(document.getElementById('contactPhone').value.trim()),
-    notes:        sanitize(document.getElementById('notes').value.trim())
-  };
-
-  // ✅ reCAPTCHA v3 token
+  // 2. 取得 reCAPTCHA Token (請替換為您的 Site Key)
   grecaptcha.ready(() => {
-    grecaptcha.execute('6LdNK44sAAAAAMMcpFMvPJJLba3hIwEr61_pXDpx', { action: 'reservation_submit' }).then(token => {
-      payload.recaptchaToken = token;
+    grecaptcha.execute('6LdNK44sAAAAAMMcpFMvPJJLba3hIwEr61_pXDpx', { action: 'submit' }).then(token => {
+      
+      const payload = {
+        elderName:    document.getElementById('elderName').value,
+        elderAge:     document.getElementById('elderAge').value,
+        gender:       document.getElementById('gender').value,
+        ltcLevel:     document.getElementById('ltcLevel').value,
+        ltcService:   document.getElementById('ltcService').value,
+        visitDate:    document.getElementById('visitDate').value,
+        visitTime:    document.querySelector('.time-slot.selected').textContent,
+        visitCount:   document.getElementById('visitCount').value,
+        contactName:  document.getElementById('contactName').value,
+        contactPhone: document.getElementById('contactPhone').value,
+        notes:        document.getElementById('notes').value,
+        recaptchaToken: token
+      };
 
-      // ✅ 改用 POST：個資放在 body，不出現在 URL / 瀏覽器紀錄 / server log
+      // 3. 發送至 GAS
       fetch(SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        // GAS 接收 POST 需用 text/plain（application/json 會觸發 CORS preflight，no-cors 下不支援）
-        // GAS 端用 JSON.parse(e.postData.contents) 解析
+        mode: 'no-cors', // 必須使用 no-cors
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(payload)
       })
-        .then(() => {
-          lastSubmitTime = Date.now();
-          document.getElementById('successOverlay').classList.add('show');
-          document.body.style.overflow = 'hidden';
-        })
-        .catch(() => {
-          alert('送出失敗，請稍後再試或直接致電 (03) 367-0090');
-          btn.textContent = '送出預約申請';
-          btn.disabled = false;
-        });
+      .then(() => {
+        document.getElementById('successOverlay').classList.add('show');
+      })
+      .catch(err => {
+        alert('送出失敗，請檢查連線');
+        btn.disabled = false;
+        btn.textContent = '重新送出';
+      });
     });
   });
 }
