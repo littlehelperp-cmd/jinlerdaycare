@@ -263,10 +263,6 @@ section { padding: 100px 6%; }
   text-align: center;
 }
 
-/* ─── FEATURES → 已合併至 WHY US，CSS 保留備用 ─── */
-
-/* ─── PROMISE → 已移除 ─── */
-
 /* ─── 今樂的專業與特色 ─── */
 .compare-section { background: var(--mist); }
 
@@ -352,7 +348,6 @@ section { padding: 100px 6%; }
 @media (max-width: 900px) {
   .why-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
 }
-/* why-us mobile → 見下方統一 @media (max-width: 600px) */
 
 /* ─── WORKFLOW ─── */
 .workflow-section { background: var(--cream); }
@@ -497,8 +492,6 @@ footer {
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.75rem; color: rgba(74,74,74,0.5);
 }
-
-/* footer mobile → 見下方統一 @media (max-width: 600px) */
 
 .pricing-tabs {
   display: flex; gap: 10px; margin-bottom: 24px;
@@ -672,7 +665,6 @@ footer {
   .location-img { min-height: 240px; max-height: 300px; }
   .location-info { padding: 36px 32px; }
 }
-/* location mobile → 見下方統一 @media (max-width: 600px) */
 
 /* ─── Email 防爬蟲 ─── */
 .email-protect::before {
@@ -1113,6 +1105,22 @@ footer {
         <div class="extra-desc">每次 $200</div>
       </div>
     </div>
+    <!-- NEW: Medical Supplies -->
+    <div class="extra-fee-card">
+      <div class="extra-icon">🧴</div>
+      <div>
+        <div class="extra-title">醫療衛耗材</div>
+        <div class="extra-desc">如：血糖試紙、尿布、個人清潔用品等，由家屬自行準備。</div>
+      </div>
+    </div>
+    <!-- NEW: Caregiver Fee -->
+    <div class="extra-fee-card">
+      <div class="extra-icon">🤝</div>
+      <div>
+        <div class="extra-title">外籍看護陪同費</div>
+        <div class="extra-desc">一位看護陪同酌收 $100 元/日（含交通及餐費）。<br><span style="color: var(--terracotta); font-weight: 600;">※ 需提供 6 個月內胸部 X 光報告</span></div>
+      </div>
+    </div>
   </div>
 
   <div class="pricing-notes reveal reveal-delay-2">
@@ -1235,7 +1243,7 @@ footer {
       <div class="location-btns">
         <a href="https://line.me/ti/p/@560oaeip" target="_blank" class="loc-btn loc-btn-line">LINE 聯繫</a>
         <a href="#" class="loc-btn loc-btn-map email-protect-btn" data-user="jinlerdaycare" data-domain="gmail.com">寄信聯繫</a>
-        <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
+        <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號1樓" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
       </div>
     </div>
   </div>
