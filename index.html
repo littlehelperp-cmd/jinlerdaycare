@@ -580,6 +580,19 @@ footer {
 }
 .pricing-notes li::before { content: '※'; color: var(--gold); flex-shrink: 0; }
 
+/* Style for links inside pricing notes */
+.pricing-notes li a {
+  color: var(--sage-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--sage-light);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+.pricing-notes li a:hover {
+  color: var(--gold);
+  text-decoration-color: var(--gold);
+}
+
 .cms-link-row { margin-top: 16px; text-align: right; }
 .cms-link {
   font-size: 0.88rem; color: var(--sage-dark);
@@ -1118,7 +1131,7 @@ footer {
       <div class="extra-icon">🤝</div>
       <div>
         <div class="extra-title">外籍看護陪同費</div>
-        <div class="extra-desc">一位看護陪同酌收 $100 元/日（含交通及餐費）。<br><span style="color: var(--terracotta); font-weight: 600;">※ 需提供 6 個月內胸部 X 光報告</span></div>
+        <div class="extra-desc">一位看護陪同酌收 $150 元/日（含交通及餐費）。<br><span style="color: var(--terracotta); font-weight: 600;">※ 需提供 6 個月內胸部 X 光報告</span></div>
       </div>
     </div>
   </div>
@@ -1126,9 +1139,8 @@ footer {
   <div class="pricing-notes reveal reveal-delay-2">
     <div class="pricing-notes-title">收費說明</div>
     <ul>
-      <li>本收費標準及給付對象身份別為依據衛生福利部公告之「長期照顧服務申請及給付辦法」訂定。</li>
-      <li>每月補助額度上限及補助日數為採用「長照四包錢」中的「照顧及專業服務」補助試算。</li>
-      <li>有聘僱外看的家庭亦可使用喘息、短照補助使用日間照顧服務，詳情請洽各中心服務人員。</li>
+      <li>本收費標準及給付對象身份別為依據衛生福利部公告之「<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059" target="_blank">長期照顧服務申請及給付辦法</a>」訂定。</li>
+      <li>每月補助額度上限及補助日數為採用長照四包錢中的「<a href="https://1966.gov.tw/LTC/lp-6451-207.html" target="_blank">照顧及專業服務</a>」補助試算。</li>
       <li>每日服務費用不含個人耗材、交通接送、身體清潔、特殊照護及其他經主管機關核定之自費項目。</li>
       <li>超出補助額度者使用或不符合長照補助資格者，每日服務費用需全額自付。</li>
     </ul>
@@ -1243,7 +1255,7 @@ footer {
       <div class="location-btns">
         <a href="https://line.me/ti/p/@560oaeip" target="_blank" class="loc-btn loc-btn-line">LINE 聯繫</a>
         <a href="#" class="loc-btn loc-btn-map email-protect-btn" data-user="jinlerdaycare" data-domain="gmail.com">寄信聯繫</a>
-        <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號1樓" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
+        <a href="https://maps.google.com/?q=桃園市八德區介壽路二段252巷21號" target="_blank" class="loc-btn loc-btn-map">地圖導航</a>
       </div>
     </div>
   </div>
