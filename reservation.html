@@ -636,7 +636,7 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
 </footer>
 
 <script>
-// Cursor
+// 1. 游標特效 (Cursor)
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let rx = 0, ry = 0;
@@ -656,31 +656,36 @@ document.querySelectorAll('a,button,.radio-option,.time-slot,.privacy-checkbox')
   el.addEventListener('mouseleave', () => { cursor.style.transform='scale(1)'; ring.style.transform='scale(1)'; });
 });
 
-// Set min date to today
+// 2. 設定預約日期最小值為今天
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('visitDate').min = today;
 
-// Time slot select
+// 3. 預約時段選擇處理
 function selectTime(el) {
-  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  document.querySelectorAll('.time-slots .time-slot').forEach(s => s.classList.remove('selected'));
   el.classList.add('selected');
 }
 
-// Privacy toggle
+// 4. 個人資料政策勾選處理
 let privacyChecked = false;
 function togglePrivacy() {
   privacyChecked = !privacyChecked;
   document.getElementById('privacyCheck').classList.toggle('checked', privacyChecked);
 }
 
-// Submit
+// ════════════════════════════════════════════════════════════
+// 5. 表單送出處理（已改為 POST 密技版本，繞過 CORS 限制）
+// ════════════════════════════════════════════════════════════
+
+// 💡 請記得在這裡填入您實際部署後的 GAS Web App 詳細網址
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_LuHif2F1NP_wHZ0ULM63nSKf_GKGydOqudnZyU1BECkz9VZr-6br5Tsf7T0Bx02xyw/exec';
 
-function submitForm() {
+async function submitForm() {
+  // 欄位驗證
   const name = document.getElementById('elderName').value.trim();
   const date = document.getElementById('visitDate').value;
   const contact = document.getElementById('contactPhone').value.trim();
-  const timeSelected = document.querySelector('.time-slot.selected');
+  const timeSelected = document.querySelector('.time-slots .time-slot.selected');
 
   if (!name || !date || !contact || !timeSelected) {
     alert('請填寫必填欄位（長輩姓名、預約日期、時段、聯繫電話）');
@@ -691,10 +696,12 @@ function submitForm() {
     return;
   }
 
+  // 按鈕狀態優化（防重複點擊）
   const btn = document.querySelector('.btn-submit');
   btn.textContent = '送出中…';
   btn.disabled = true;
 
+  // 封裝成要傳送的 JSON 資料物件
   const payload = {
     elderName:    document.getElementById('elderName').value.trim(),
     elderAge:     document.getElementById('elderAge').value.trim(),
@@ -702,24 +709,39 @@ function submitForm() {
     ltcLevel:     document.getElementById('ltcLevel').value,
     ltcService:   document.getElementById('ltcService').value,
     visitDate:    document.getElementById('visitDate').value,
-    visitTime:    timeSelected.textContent.trim(),
+    visitTime:    timeSelected.innerText.replace(/\n.*/g, '').trim(), // 只取時間，過濾掉「專人電話聯繫」小字
     visitCount:   document.getElementById('visitCount').value,
     contactName:  document.getElementById('contactName').value.trim(),
     contactPhone: document.getElementById('contactPhone').value.trim(),
     notes:        document.getElementById('notes').value.trim()
   };
 
-  const params = new URLSearchParams(payload);
-  fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
-  .then(() => {
-    document.getElementById('successOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
-  })
-  .catch(() => {
-    alert('送出失敗，請稍後再試或直接致電 (03) 367-0090');
+  try {
+    // 使用 fetch 發送 POST 請求
+    const res = await fetch(SCRIPT_URL, {
+      method:  "POST",
+      headers: { "Content-Type": "text/plain" }, // 關鍵：掛羊頭賣狗肉，繞過 preflight 檢查
+      body:    JSON.stringify(payload)
+    });
+
+    const result = await res.json();
+
+    if (result.status === "success") {
+      // 成功：開啟全畫面綠色成功遮罩
+      document.getElementById('successOverlay').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 失敗：提示後端傳回的錯誤原因
+      alert("提交失敗：" + (result.message || "請稍後再試"));
+      btn.textContent = '送出預約申請';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    // 網路層面錯誤處理
+    alert("網路錯誤，請稍後再試或來電 (03) 367-0090");
     btn.textContent = '送出預約申請';
     btn.disabled = false;
-  });
+  }
 }
 </script>
 </body>
