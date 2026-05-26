@@ -572,6 +572,14 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
       <span>我已閱讀並同意今樂日照健康有限公司的<a href="privacy.html" target="_blank">個人資料保護政策</a>，同意本公司蒐集、處理及利用上述個人資料。</span>
     </div>
 
+    <!-- Honeypot：機器人防護，人類不會看到此欄位 -->
+    <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+    <label for="website">請勿填寫此欄位</label>
+    <input type="text" id="website" name="website" value=""
+            autocomplete="off" tabindex="-1"
+            style="opacity:0;position:absolute;width:1px;height:1px;">
+    </div>
+
     <button class="btn-submit" onclick="submitForm()">送出預約申請</button>
 
   </div>
@@ -679,8 +687,11 @@ function togglePrivacy() {
 
 // 💡 請記得在這裡填入您實際部署後的 GAS Web App 詳細網址
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_LuHif2F1NP_wHZ0ULM63nSKf_GKGydOqudnZyU1BECkz9VZr-6br5Tsf7T0Bx02xyw/exec';
+const HONEYPOT_ID = 'website'; // honeypot 欄位 id
 
 async function submitForm() {
+  // ── Honeypot 檢查：機器人會填這個隱藏欄位，真人不會 ──
+  if (document.getElementById(HONEYPOT_ID).value !== '') return; // 靜默失敗，不提示
   // 欄位驗證
   const name = document.getElementById('elderName').value.trim();
   const date = document.getElementById('visitDate').value;
@@ -713,7 +724,8 @@ async function submitForm() {
     visitCount:   document.getElementById('visitCount').value,
     contactName:  document.getElementById('contactName').value.trim(),
     contactPhone: document.getElementById('contactPhone').value.trim(),
-    notes:        document.getElementById('notes').value.trim()
+    notes:        document.getElementById('notes').value.trim(),
+    website:      document.getElementById(HONEYPOT_ID).value
   };
 
   try {
