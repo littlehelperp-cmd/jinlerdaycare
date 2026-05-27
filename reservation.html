@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+<!-- reCAPTCHA v3 -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LdGzP4sAAAAAHdiDIpy-HAB5jbtmSxDCdIrkYuE"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -709,8 +711,19 @@ async function submitForm() {
 
   // 按鈕狀態優化（防重複點擊）
   const btn = document.querySelector('.btn-submit');
-  btn.textContent = '送出中…';
+  btn.textContent = '驗證中…';   // ← 文字改為「驗證中」讓使用者知道正在處理
   btn.disabled = true;
+
+  // ── 取得 reCAPTCHA v3 Token（背景執行，使用者無感）──
+  let recaptchaToken;
+  try {
+    recaptchaToken = await grecaptcha.execute('6LdGzP4sAAAAAHdiDIpy-HAB5jbtmSxDCdIrkYuE', { action: 'reservation' });
+  } catch (err) {
+    alert('驗證服務暫時無法使用，請稍後再試');
+    btn.textContent = '送出預約申請';
+    btn.disabled = false;
+    return;
+  }
 
   // 封裝成要傳送的 JSON 資料物件
   const payload = {
@@ -720,12 +733,13 @@ async function submitForm() {
     ltcLevel:     document.getElementById('ltcLevel').value,
     ltcService:   document.getElementById('ltcService').value,
     visitDate:    document.getElementById('visitDate').value,
-    visitTime:    timeSelected.innerText.replace(/\n.*/g, '').trim(), // 只取時間，過濾掉「專人電話聯繫」小字
+    visitTime:    timeSelected.innerText.replace(/\n.*/g, '').trim(),
     visitCount:   document.getElementById('visitCount').value,
     contactName:  document.getElementById('contactName').value.trim(),
     contactPhone: document.getElementById('contactPhone').value.trim(),
     notes:        document.getElementById('notes').value.trim(),
-    website:      document.getElementById(HONEYPOT_ID).value
+    website:      document.getElementById(HONEYPOT_ID).value,
+    recaptchaToken: recaptchaToken   // ← 新增這行，將 token 一併送出
   };
 
   try {
