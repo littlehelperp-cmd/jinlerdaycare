@@ -600,6 +600,22 @@ footer {
   text-decoration-color: var(--gold);
 }
 
+.self-pay-section { margin-top: 40px; }
+.self-pay-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--sage-dark); margin-bottom: 20px;
+}
+.self-pay-table td { text-align: left; }
+.self-pay-table td:first-child { text-align: center; white-space: nowrap; }
+.self-pay-table td:last-child { text-align: center; white-space: nowrap; font-weight: 600; color: var(--terracotta); }
+.self-pay-table thead th:first-child { width: 16%; }
+.self-pay-table thead th:last-child { width: 18%; }
+@media (max-width: 600px) {
+  .self-pay-table td:first-child,
+  .self-pay-table td:last-child { white-space: normal; }
+}
+
 .cms-link-row { margin-top: 16px; text-align: right; }
 .cms-link {
   font-size: 0.88rem; color: var(--sage-dark);
@@ -1024,6 +1040,7 @@ footer {
   <div class="pricing-tabs reveal">
     <button class="ptab active" data-tab="full">全日托（5小時以上未滿9小時）</button>
     <button class="ptab" data-tab="half">半日托（未滿5小時）</button>
+    <button class="ptab" data-tab="other">其他自費項目</button>
   </div>
 
   <div class="pricing-table-wrap reveal" id="tab-full">
@@ -1058,6 +1075,51 @@ footer {
           <tr><td>CMS-8</td><td>36,180</td><td>1,285</td><td>29,555</td><td>24,827</td><td>4,728</td><td>28,078</td><td>1,477</td><td>36,180</td><td class="zero-td">0</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="extra-fees reveal reveal-delay-1">
+      <div class="extra-fee-card">
+        <div class="extra-icon">🍱</div>
+        <div>
+          <div class="extra-title">餐點費</div>
+          <div class="extra-desc">延托晚餐費用：$150元／餐</div>
+        </div>
+      </div>
+      <div class="extra-fee-card">
+        <div class="extra-icon">⏰</div>
+        <div>
+          <div class="extra-title">延托費用</div>
+          <div class="extra-desc">每半小時以 125 元未滿半小時以半小時計，機構每日延時收托至晚上 7:00</div>
+        </div>
+      </div>
+      <div class="extra-fee-card">
+        <div class="extra-icon">🚐</div>
+        <div>
+          <div class="extra-title">交通接送（10公里內／單趟）</div>
+          <div class="extra-desc">長照個案政府補助：115元/趟, 超過補助額度則需自費</div>
+        </div>
+      </div>
+      <div class="extra-fee-card">
+        <div class="extra-icon">🛁</div>
+        <div>
+          <div class="extra-title">沐浴服務</div>
+          <div class="extra-desc">每次 $200</div>
+        </div>
+      </div>
+      <div class="extra-fee-card">
+        <div class="extra-icon">🧴</div>
+        <div>
+          <div class="extra-title">醫療衛耗材</div>
+          <div class="extra-desc">如：血糖試紙、尿布、個人清潔用品等，由家屬自行準備。</div>
+        </div>
+      </div>
+      <div class="extra-fee-card">
+        <div class="extra-icon">🤝</div>
+        <div>
+          <div class="extra-title">個案有外籍看護陪同需求者</div>
+          <div class="extra-desc">隨車陪同交通接送費115元／趟。餐食費：150元／餐。<br><span style="color: var(--terracotta); font-weight: 600;">※ 必需提供 6 個月內胸部 X 光報告</span></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1096,50 +1158,30 @@ footer {
     </div>
   </div>
 
-  <div class="extra-fees reveal reveal-delay-1">
-    <div class="extra-fee-card">
-      <div class="extra-icon">🍱</div>
-      <div>
-        <div class="extra-title">餐點費</div>
-        <div class="extra-desc">延托晚餐費用：$150元／餐</div>
-      </div>
-    </div>
-    <div class="extra-fee-card">
-      <div class="extra-icon">⏰</div>
-      <div>
-        <div class="extra-title">延托費用</div>
-        <div class="extra-desc">每半小時以 125 元未滿半小時以半小時計，機構每日延時收托至晚上 7:00</div>
-      </div>
-    </div>
-    <div class="extra-fee-card">
-      <div class="extra-icon">🚐</div>
-      <div>
-        <div class="extra-title">交通接送（10公里內／單趟）</div>
-        <div class="extra-desc">長照個案政府補助：115元/趟, 超過補助額度則需自費</div>
-      </div>
-    </div>
-    <div class="extra-fee-card">
-      <div class="extra-icon">🛁</div>
-      <div>
-        <div class="extra-title">沐浴服務</div>
-        <div class="extra-desc">每次 $200</div>
-      </div>
-    </div>
-    <!-- NEW: Medical Supplies -->
-    <div class="extra-fee-card">
-      <div class="extra-icon">🧴</div>
-      <div>
-        <div class="extra-title">醫療衛耗材</div>
-        <div class="extra-desc">如：血糖試紙、尿布、個人清潔用品等，由家屬自行準備。</div>
-      </div>
-    </div>
-    <!-- NEW: Caregiver Fee -->
-    <div class="extra-fee-card">
-      <div class="extra-icon">🤝</div>
-      <div>
-        <div class="extra-title">個案有外籍看護陪同需求者</div>
-        <div class="extra-desc">隨車陪同交通接送費115元／趟。餐食費：150元／餐。<br><span style="color: var(--terracotta); font-weight: 600;">※ 必需提供 6 個月內胸部 X 光報告</span></div>
-      </div>
+  <div class="pricing-table-wrap self-pay-section reveal reveal-delay-1" id="tab-other" style="display:none;">
+    <div class="table-scroll">
+      <table class="pricing-table self-pay-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>說明</th>
+            <th>負擔費用（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>自費日間照顧服務（全日）</td><td>全日。</td><td>1,250 元</td></tr>
+          <tr><td>自費日間照顧服務（半日）</td><td>半日。</td><td>625 元</td></tr>
+          <tr><td>傷口處理費</td><td>由護理師執行，依據傷口最長直徑計算。</td><td>小於10公分：56元<br>10至20公分：76元<br>大於20公分：125元</td></tr>
+          <tr><td>血糖測試</td><td>由護理師執行。</td><td>50 元／次</td></tr>
+          <tr><td>胰島素注射</td><td>由護理師執行。</td><td>50 元／次</td></tr>
+          <tr><td>延托服務費</td><td>上午半日服務個案超過12:00，下午半日服務個案超過17:00者，或全日服務個案超過17:00者。</td><td>125 元／半小時</td></tr>
+          <tr><td>陪同者餐食費</td><td>如有陪同者（外看）需餐食者，每餐酌收150元，亦可自行處理。</td><td>150 元／餐</td></tr>
+          <tr><td>服務未遇處理費</td><td>未提前於前一日17:00取消服務者，酌收服務未遇處理費，但有緊急狀況者，不在此限。</td><td>200 元／次</td></tr>
+          <tr><td>交通車清潔費</td><td>如有嘔吐或便溺狀況，導致車輛需清潔費用。</td><td>200 元／次</td></tr>
+          <tr><td>照顧耗材費</td><td>個人營養品、紙尿褲、個人日用品、外出就醫相關費用。</td><td>依實際使用金額或單據收取費用</td></tr>
+          <tr><td>交通費</td><td>無提供10公里以上交通接送。</td><td>115 元／趟</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -1289,6 +1331,7 @@ document.querySelectorAll('.ptab').forEach(btn => {
     const tab = btn.dataset.tab;
     document.getElementById('tab-full').style.display = tab === 'full' ? '' : 'none';
     document.getElementById('tab-half').style.display = tab === 'half' ? '' : 'none';
+    document.getElementById('tab-other').style.display = tab === 'other' ? '' : 'none';
   });
 });
 
