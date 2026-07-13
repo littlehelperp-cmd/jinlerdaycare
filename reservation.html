@@ -478,7 +478,7 @@ footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
       </div>
       <div class="form-group">
         <label>年齡 <span class="required">*</span></label>
-        <input type="number" id="elderAge" placeholder="例：78">
+        <input type="number" id="elderAge" placeholder="例：78" min="0" max="150">
       </div>
       <div class="form-group">
         <label>性別 <span class="required">*</span></label>
@@ -697,6 +697,7 @@ async function submitForm() {
   // 欄位驗證
   const name = document.getElementById('elderName').value.trim();
   const date = document.getElementById('visitDate').value;
+  const age = document.getElementById('elderAge').value.trim();
   const contact = document.getElementById('contactPhone').value.trim();
   const timeSelected = document.querySelector('.time-slots .time-slot.selected');
 
@@ -707,6 +708,10 @@ async function submitForm() {
   if (!privacyChecked) {
     alert('請先同意個人資料保護政策');
     return;
+  }
+  if (age !== '' && (Number(age) < 0 || Number(age) > 150)) {
+  alert('請輸入 0-150 之間的年齡');
+  return;
   }
 
   // 按鈕狀態優化（防重複點擊）
